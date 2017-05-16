@@ -1,0 +1,43 @@
+// Center-align a block level element
+// block得有宽度margin左右为auto才能居中
+@mixin center-block ($extend:true) {
+    @if $extend {
+        @extend %center-block;
+    } @else {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+%center-block{
+    @include center-block(false);
+}
+
+// float left & right
+@mixin float($float:left) {
+    float: $float;
+    display: inline;
+}
+%float{
+    @include float;
+}
+
+// clearfix
+// 闭合子元素的浮动
+@mixin clearfix ($extend:true) {
+    @if $extend {
+        @extend %clearfix;
+    } @else {
+        *zoom: 1;
+        &:before,
+        &:after {
+            content: "";
+            display: table;
+        }
+        &:after {
+            clear: both;
+        }
+    }
+}
+%clearfix{
+    @include clearfix(false);
+}

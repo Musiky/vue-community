@@ -1,0 +1,15 @@
+@media (max-width: 600px) {
+    .hide-width {
+        display: none !important;
+    }
+}
+@media (min-width: 601px) and (max-width: 992px) {
+    .hide-tablet {
+        display: none !important;
+    }
+}
+@media (min-width: 993px) {
+    .hide-desktop {
+        display: none !important;
+    }
+}
