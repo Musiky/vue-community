@@ -3,11 +3,13 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 import topics from './modules/topics'
+import info from './modules/info'
 
 const store = new Vuex.Store({
     state: {},
     modules: {
-        topics
+        topics,
+        info
     }
 })
 

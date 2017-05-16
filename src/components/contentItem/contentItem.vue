@@ -1,15 +1,20 @@
 <template>
-    <mu-paper class="content-item"
-              :zDepth="1">
+    <div class="content-item">
         <!--Top Box-->
         <div class="top-box">
             <!--avatar-->
-            <div class="avatar">
+            <div class="avatar"
+                 :data-id="list.id"
+                 :data-userid="list.author_id"
+                 @click="tapToUserInfo">
                 <img :src="list.author.avatar_url"
                      alt="">
             </div>
             <!--info-->
-            <div class="info">
+            <div class="info"
+                 :data-id="list.id"
+                 :data-userid="list.author_id"
+                 @click="tapToInfo($event)">
                 <p class="username">{{list.author.loginname}}</p>
                 <p class="title">{{list.title}}</p>
                 <div class="tab">{{list.tab}}</div>
@@ -25,14 +30,14 @@
                 <div class="item">
                     <mu-icon value="visibility"
                              :size="14"
-                             color="#99A9BF"></mu-icon>
+                             color="#D3DCE6"></mu-icon>
                     <div class="text">{{list.visit_count}}</div>
                 </div>
                 <!--reply-->
                 <div class="item">
                     <mu-icon value="textsms"
                              :size="14"
-                             color="#99A9BF"></mu-icon>
+                             color="#D3DCE6"></mu-icon>
                     <div class="text">{{list.reply_count}}</div>
                 </div>
             </div>
@@ -43,7 +48,7 @@
             </div>
         </div>
         <!--bottom box-->
-    </mu-paper>
+    </div>
 </template>
 
 <script>
@@ -52,6 +57,18 @@ export default {
         list: {
             type: Object
         }
+    },
+    methods: {
+        tapToInfo (e) {
+            let info_id = e.currentTarget.dataset.id,
+                user_id = e.currentTarget.dataset.userid
+            this.$emit('info', info_id, user_id);
+        },
+        tapToUserInfo (e) {
+            let info_id = e.currentTarget.dataset.id,
+                user_id = e.currentTarget.dataset.userid
+            this.$emit('userInfo', info_id, user_id);
+        }
     }
 }
 </script>
@@ -59,9 +76,10 @@ export default {
 <style lang="scss">
 @import '../../assets/sass/_base.scss';
 .content-item {
-    width: 92%;
-    padding: .24rem;
-    margin-top: .32rem;
+    width: 100%;
+    padding: .32rem;
+    margin-top: .12rem;
+    background: #fff;
     box-sizing: border-box;
     @include center-block;
     .top-box {
@@ -92,7 +110,7 @@ export default {
             }
             .title {
                 -webkit-margin-before: .5em;
-                color: $Silver;
+                color: $ExtraLightBlack;
             }
             .tab {
                 position: absolute;
@@ -118,7 +136,7 @@ export default {
                 }
                 .text {
                     font-size: .24rem;
-                    color: $Black;
+                    color: darken($Gray, 20%);
                     margin-left: .08rem;
                 }
             }
@@ -127,7 +145,7 @@ export default {
             flex: 1;
             text-align: end;
             font-size: .24rem;
-            color: $Black;
+            color: $Gray;
         }
     }
 }

@@ -8,7 +8,7 @@ Vue.config.productionTip = false
 
 // axios
 import axios from 'axios'
-axios.defaults.baseURL = 'http://www.vue-js.com/api/v1/'   // base url
+axios.defaults.baseURL = 'https://www.vue-js.com/api/v1/'   // base url
 
 // import css
 import './assets/css/material-icons.css'     // material-icons.css

@@ -1,13 +1,9 @@
 <template>
   <div class="topics">
-    <!--Progress-->
-    <!--<div class="progress-wrapper"
-           v-show="">
-        <mu-circular-progress :size="30"
-                              color="#41b883" />
-      </div>-->
-    <!--progress-->
-  
+    <!--Router Children-->
+    <router-view></router-view>
+    <!--router children-->
+
     <!--Tabs-->
     <div class="tabs-wrapper">
       <mu-tabs :value="activeTab"
@@ -32,7 +28,9 @@
     <!--Content-->
     <div class="content-wrapper">
       <content-item v-for="list in topics.data"
-                    :list="list"></content-item>
+                    :list="list"
+                    @info="tapToInfo"
+                    @userInfo="tapToUserInfo"></content-item>
     </div>
     <!--content-->
   
@@ -41,10 +39,14 @@
                         :loading="topics.isFetching"
                         @load="loadMore" />
     <!--infinite scroll-->
-
+  
     <!--No More Data-->
     <noMoreData v-if="this.topics.noMoreData"></noMoreData>
     <!--no more data-->
+
+    <!--Error Data-->
+    <noMoreData v-if="this.topics.errData" title="网络出错了，稍后再试"></noMoreData>
+    <!--error data-->
   </div>
 </template>
 
@@ -85,17 +87,27 @@ export default {
   methods: {
     ...mapMutations([
       'CLEAR_STATE_DATA',
-      'TOGGLE_NO_MORE_DATA_STATE'
+      'TOGGLE_NO_MORE_DATA_STATE',
+      'TOGGLE_ERROR_DATA_STATE'
     ]),
     // 切换 tabs
     // ========
     handleTabChange (val) {
-      this.activeTab = val;
-      this.CLEAR_STATE_DATA();
+      this.activeTab = val;     // 切换选项卡
+      this.CLEAR_STATE_DATA();  // 清楚历史数据
+
+      // 如果 noMoreData 为 true，让它变成 false
       if (this.topics.noMoreData) {
-        this.TOGGLE_NO_MORE_DATA_STATE();
+        this.TOGGLE_NO_MORE_DATA_STATE();  
       };
+
+      // 如果 errData 为 true，让它变成 false
+      if (this.topics.errData) {
+        this.TOGGLE_ERROR_DATA_STATE();
+      };
+
       this.page = 1;
+
       switch (val) {
         case 'all':
           this.http('all', 0, 20);
@@ -132,6 +144,22 @@ export default {
         this.http(this.activeTab, this.page, 20);
         console.log(this.page)
       }
+    },
+    // 跳转详情页
+    // ========
+    tapToInfo (id, userid) {
+      this.$router.push({
+        name: 'info',
+        params: {
+          id,
+          userid
+        }
+      })
+    },
+    // 跳转用户详情页
+    // ============
+    tapToUserInfo(e) {
+      alert(e)
     }
   }
 }
@@ -140,24 +168,8 @@ export default {
 <style lang="scss">
 @import '../../assets/sass/_base.scss';
 
-.topics {
-  .progress-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    z-index: $LoadingIndex;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, .54);
-    .mu-circular-progress {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate3d(-50%, -50%, 0);
-    }
-  }
+.topics {  
+  background: $ExtraLightGray;
   .mu-circle {
     border-top-color: $primary !important;
     border-right-color: $primary !important;

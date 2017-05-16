@@ -5,6 +5,8 @@ const topics = {
     state: {
         isFetching: false,
         noMoreData: false,
+        errData: false,
+        error: '',
         data: []
     },
     mutations: topicsMutations,

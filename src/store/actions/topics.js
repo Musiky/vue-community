@@ -1,4 +1,4 @@
-import { FETCH_TOPICS_REQ, FETCH_TOPICS_SUC, FETCH_TOPICS_ERR } from '../constants/types'
+import { FETCH_TOPICS_REQ, FETCH_TOPICS_SUC, FETCH_TOPICS_ERR, CLEAR_STATE_DATA, TOGGLE_NO_MORE_DATA_STATE, TOGGLE_ERROR_DATA_STATE, TOGGLE_ISFETCHING_STATE } from '../constants/types'
 import axios from 'axios'
 
 export const topicsActions = {
@@ -17,6 +17,8 @@ export const topicsActions = {
             let data = res.data.data,
                 origin = state.data,
                 arr = [];
+
+            // 转换时间
             data.forEach((val, index) => {
                 let time = new Date(val.last_reply_at),
                     year = time.getFullYear(),
@@ -27,6 +29,8 @@ export const topicsActions = {
 
                 val.last_reply_at = dateStr;
             });
+
+            // 累加数组
             arr = origin.concat(data);
 
             if (data.length > 0) {
@@ -35,13 +39,14 @@ export const topicsActions = {
                 })
             } else {
                 commit('TOGGLE_NO_MORE_DATA_STATE');
-                commit('FETCH_TOPICS_ERR');
+                commit('TOGGLE_ISFETCHING_STATE');
             }
-        }).catch((err) => {
+        }).catch((error) => {
+            commit('TOGGLE_ERROR_DATA_STATE');
             commit('FETCH_TOPICS_ERR', {
-                error: err
+                error
             });
-            console.log(err)
+            console.log(error)
         })
     }
 }
