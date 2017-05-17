@@ -1,40 +1,66 @@
 <template>
-    <mu-flexbox orient="vertical" class="info">
+    <mu-flexbox orient="vertical"
+                class="info">
         <!--Progress-->
         <mainProgress v-show="info.isFetching"></mainProgress>
         <!--progress-->
-
+    
+        <!--Content-->
+        <mu-flexbox-item grow="1"
+                         class="content-wrapper">
+            <div class="content">
+                <!--title-->
+                <p class="title">
+                    {{info.data.title}}
+                </p>
+    
+                <!--information-->
+                <mu-flexbox class="information">
+                    <!--userinfo-->
+                    <mu-flexbox class="userinfo">
+                        <div class="avatar">
+                            <img :src="info.data.author.avatar_url"
+                                 alt="">
+                        </div>
+                        <p class="username">{{info.data.author.loginname}}</p>
+                    </mu-flexbox>
+                    <!--time-->
+                    <mu-flexbox-item class="time">
+                        {{info.data.last_reply_at}}
+                    </mu-flexbox-item>
+                </mu-flexbox>
+    
+                <!--textblock-->
+                <div class="textblock"
+                     v-html="info.data.content"></div>
+            </div>
+        </mu-flexbox-item>
+        <!--content-->
+    
         <!--Appbar-->
-        <mu-appbar :title="info.data.author.loginname">
+        <mu-appbar>
+            <!--icon back-->
             <mu-icon-button icon="arrow_back"
                             slot="left"
                             @click="back"></mu-icon-button>
+    
+            <!--button comment-->
+            <div class="btn-comment">
+                &nbsp&nbsp说点什么吧
+            </div>
+    
+            <!--button reply-->
+            <div class="btn-reply"
+                 slot="right">
+                <mu-icon-button icon="chat"></mu-icon-button>
+                <div class="reply-count">{{info.data.reply_count}}</div>
+            </div>
+
+            <!--button collection-->
+            <mu-icon-button icon="star_border"
+                            slot="right"></mu-icon-button>
         </mu-appbar>
         <!--appbar-->
-
-        <!--Content-->
-        <mu-flexbox-item grow="1" class="content">
-            <!--title-->
-            <p class="title">
-                {{info.data.title}}
-            </p>
-            <!--information-->
-            <mu-flexbox class="information">
-                <!--userinfo-->
-                <mu-flexbox class="userinfo">
-                    <div class="avatar">
-                        <img :src="info.data.author.avatar_url" alt="">
-                    </div>
-                    <p class="username">{{info.data.author.loginname}}</p>
-                </mu-flexbox>
-                <!--time-->
-                <mu-flexbox-item class="time">
-                    {{info.data.last_reply_at}}
-                </mu-flexbox-item>
-            </mu-flexbox>
-            <!--textblock-->
-        </mu-flexbox-item>
-        <!--content-->
     </mu-flexbox>
 </template>
 
@@ -68,7 +94,7 @@ export default {
         }
     },
     created () {
-        this.$store.dispatch('fetchInfoActions', {
+        this.$store.dispatch('fetchInfoAction', {
             id: this.info_id
         })
     }
@@ -84,12 +110,16 @@ export default {
     z-index: $ChildPage !important;
     width: 100%;
     height: 100%;
-    background: #fff;    
-    .content {
-        width: 92%;
+    background: #fff;
+    .content-wrapper {
+        width: 100%;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
         @include center-block();
+        .content {
+            width: 92%;
+            @include center-block;
+        }
         .title {
             font-size: .36rem;
             font-weight: bold;
@@ -106,9 +136,9 @@ export default {
                     img {
                         width: .66rem;
                         height: .66rem;
-                    }            
+                    }
                 }
-                .username {                    
+                .username {
                     color: $Black;
                     margin-left: .16rem;
                 }
@@ -116,6 +146,37 @@ export default {
             .time {
                 text-align: end;
                 color: $Gray;
+            }
+        }
+    }
+    .mu-appbar {
+        color: $Black !important;
+        background: #fff !important;
+        .mu-icon-button {
+            color: $Black !important;
+        }
+        .btn-comment {
+            width: 3.8rem;
+            height: 42px;
+            line-height: 42px;
+            font-size: .28rem;
+            color: darken($Gray, 10%);
+            background: $ExtraLightGray;
+        }
+        .btn-reply {
+            position: relative;
+            .reply-count {
+                position: absolute;
+                right: .08rem;
+                top: .02rem;
+                width: .35rem;
+                height: .35rem;
+                line-height: .35rem;
+                border-radius: 100%;
+                background: $orange;  
+                text-align: center;              
+                font-size: .2rem;
+                color: #fff;
             }
         }
     }

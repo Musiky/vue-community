@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const topicsActions = {
     // 请求 topics 数据
-    fetchTopicsActions({ commit, state }, params) {
+    fetchTopicsAction({ commit, state }, params) {
         commit('FETCH_TOPICS_REQ');
         axios({
             method: 'get',

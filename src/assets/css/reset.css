@@ -3,9 +3,6 @@ html, body {
     height: 100%;
     color: #1F2D3D !important;    
 }
-li {
-    list-style: none;
-}
 a {
     text-decoration: none;
     -webkit-backface-visibility: hidden;

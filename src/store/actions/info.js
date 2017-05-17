@@ -4,7 +4,7 @@ import axios from 'axios'
 export const infoActions = {
     // 请求详情数据
     // ==========
-    fetchInfoActions({ commit, state }, params) {
+    fetchInfoAction({ commit, state }, params) {
         commit('FETCH_INFO_REQ');
         axios({
             method: 'get',

@@ -4,6 +4,7 @@ Vue.use(Vuex)
 
 import topics from './modules/topics'
 import info from './modules/info'
+import login from './modules/login'
 
 const store = new Vuex.Store({
     state: {
@@ -11,7 +12,8 @@ const store = new Vuex.Store({
     },
     modules: {
         topics,
-        info
+        info,
+        login
     },
     mutations: {
         TOGGLE_MAIN_OVERFLOW (state) {

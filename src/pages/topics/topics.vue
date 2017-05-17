@@ -133,7 +133,7 @@ export default {
     // 公共请求方法
     // ==========
     http (tab, page, limit) {
-      this.$store.dispatch('fetchTopicsActions', {
+      this.$store.dispatch('fetchTopicsAction', {
         tab, page, limit
       })
     },
