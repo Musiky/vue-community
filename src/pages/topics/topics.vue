@@ -88,7 +88,8 @@ export default {
     ...mapMutations([
       'CLEAR_STATE_DATA',
       'TOGGLE_NO_MORE_DATA_STATE',
-      'TOGGLE_ERROR_DATA_STATE'
+      'TOGGLE_ERROR_DATA_STATE',
+      'TOGGLE_MAIN_OVERFLOW'
     ]),
     // 切换 tabs
     // ========
@@ -148,6 +149,7 @@ export default {
     // 跳转详情页
     // ========
     tapToInfo (id, userid) {
+      this.TOGGLE_MAIN_OVERFLOW();
       this.$router.push({
         name: 'info',
         params: {

@@ -3,9 +3,12 @@
     <!--Appbar-->
     <appbar :title="this.$route.params.title"></appbar>
     <!--appbar-->
-
-    <router-view class="main"></router-view>
-
+  
+    <!--Router View-->
+    <router-view class="main"
+                 :class="{'hide-overflow': isHideMainOverflow}"></router-view>
+    <!--router view-->
+  
     <!--ButtomNav-->
     <bottomnav></bottomnav>
     <!--buttomnav-->
@@ -13,13 +16,20 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import appbar from './components/appbar/appbar'
 import bottomnav from './components/bottomnav/bottomnav'
 export default {
+  computed: {
+    ...mapState([
+      'isHideMainOverflow'
+    ])
+  },
   components: {
     appbar,
     bottomnav
-  }
+  },
+
 }
 </script>
 
@@ -34,6 +44,9 @@ export default {
     width: 100%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+  }
+  .hide-overflow {
+    overflow: hidden;
   }
 }
 </style>

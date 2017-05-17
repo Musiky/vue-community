@@ -32,6 +32,7 @@
                     {{info.data.last_reply_at}}
                 </mu-flexbox-item>
             </mu-flexbox>
+            <!--textblock-->
         </mu-flexbox-item>
         <!--content-->
     </mu-flexbox>
@@ -50,9 +51,13 @@ export default {
         mainProgress
     },
     methods: {
+        ...mapMutations([
+            'TOGGLE_MAIN_OVERFLOW'
+        ]),
         // 返回到父级路由
         // ============
         back () {
+            this.TOGGLE_MAIN_OVERFLOW();
             this.$router.go(-1);
         }
     },
@@ -76,7 +81,7 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: $ChildPage;
+    z-index: $ChildPage !important;
     width: 100%;
     height: 100%;
     background: #fff;    
