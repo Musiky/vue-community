@@ -1,9 +1,12 @@
 <template>
   <div class="topics">
     <!--Router Children-->
-    <router-view></router-view>
+    <transition enter-active-class="animated slideInUp"
+                leave-active-class="animated slideOutDown">
+      <router-view></router-view>
+    </transition>
     <!--router children-->
-
+  
     <!--Tabs-->
     <div class="tabs-wrapper">
       <mu-tabs :value="activeTab"
@@ -43,9 +46,10 @@
     <!--No More Data-->
     <noMoreData v-if="this.topics.noMoreData"></noMoreData>
     <!--no more data-->
-
+  
     <!--Error Data-->
-    <noMoreData v-if="this.topics.errData" title="网络出错了，稍后再试"></noMoreData>
+    <noMoreData v-if="this.topics.errData"
+                title="网络出错了，稍后再试"></noMoreData>
     <!--error data-->
   </div>
 </template>
@@ -99,7 +103,7 @@ export default {
 
       // 如果 noMoreData 为 true，让它变成 false
       if (this.topics.noMoreData) {
-        this.TOGGLE_NO_MORE_DATA_STATE();  
+        this.TOGGLE_NO_MORE_DATA_STATE();
       };
 
       // 如果 errData 为 true，让它变成 false
@@ -160,7 +164,7 @@ export default {
     },
     // 跳转用户详情页
     // ============
-    tapToUserInfo(e) {
+    tapToUserInfo (e) {
       alert(e)
     }
   }
@@ -170,7 +174,7 @@ export default {
 <style lang="scss">
 @import '../../assets/sass/_base.scss';
 
-.topics {  
+.topics {
   background: $ExtraLightGray;
   .mu-circle {
     border-top-color: $primary !important;

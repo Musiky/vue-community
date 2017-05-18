@@ -17,13 +17,17 @@
                  @click="tapToInfo($event)">
                 <p class="username">{{list.author.loginname}}</p>
                 <p class="title">{{list.title}}</p>
-                <div class="tab">{{list.tab}}</div>
+    
+                <!--tab-->
+                <div class="tab"
+                     v-if="!simple">{{list.tab}}</div>
             </div>
         </div>
         <!--top box-->
     
         <!--Bottom Box-->
-        <div class="bottom-box">
+        <div class="bottom-box"
+             v-if="!simple">
             <!--state-->
             <div class="state">
                 <!--visit-->
@@ -56,6 +60,11 @@ export default {
     props: {
         list: {
             type: Object
+        },
+        // 是否采用简洁模版
+        simple: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {

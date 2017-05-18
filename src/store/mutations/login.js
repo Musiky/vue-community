@@ -1,4 +1,4 @@
-import { FETCH_USER_REQ, FETCH_USER_SUC, FETCH_USER_ERR, TOGGLE_SNACK_SHOW, TOGGLE_SNACK_STATE, DEFINE_SNACK_MSG } from '../constants/types'
+import { FETCH_USER_REQ, FETCH_USER_SUC, FETCH_USER_ERR, TOGGLE_SNACK_SHOW, TOGGLE_SNACK_STATE, DEFINE_SNACK_MSG, LOGOUT, COMMIT_USERINFO } from '../constants/types'
 
 export const loginMutations = {
     FETCH_USER_REQ(state) {
@@ -21,5 +21,11 @@ export const loginMutations = {
     },
     DEFINE_SNACK_MSG(state, action) {
         state.snackmsg = action.msg
+    },
+    COMMIT_USERINFO(state, action) {
+        state.userinfo = action.data
+    },
+    LOGOUT(state) {
+        state.data.success = false;
     }
 }
