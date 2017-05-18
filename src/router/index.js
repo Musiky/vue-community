@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import topics from '../pages/topics/topics.vue'
-/* -- */ import info from '../pages/topics/children/info/info.vue'
 import user from '../pages/user/user.vue'
 /* -- */ import collection from '../pages/user/children/collection/collection.vue'
 /* -- */ import replies from '../pages/user/children/replies/replies.vue'
@@ -14,14 +13,7 @@ const routes = [
   {
     name: 'topics',
     path: '/topics/:title',
-    component: topics,
-    children: [
-      {
-        name: 'info',
-        path: 'info/:id/:userid',
-        component: info
-      }
-    ]
+    component: topics
   },
   {
     name: 'user',
@@ -42,11 +34,6 @@ const routes = [
         name: 'mytopic',
         path: 'mytopic/:title',
         component: mytopic
-      },
-      {
-        name: 'info',
-        path: 'info/:id/:userid',
-        component: info
       }
     ]
   },

@@ -5,6 +5,8 @@ Vue.use(Vuex)
 import topics from './modules/topics'
 import info from './modules/info'
 import login from './modules/login'
+import bottomNav from './modules/bottomNav'
+import replies from './modules/replies'
 
 const store = new Vuex.Store({
     state: {
@@ -13,11 +15,16 @@ const store = new Vuex.Store({
     modules: {
         topics,
         info,
-        login
+        login,
+        bottomNav,
+        replies
     },
     mutations: {
-        TOGGLE_MAIN_OVERFLOW (state) {
-            state.isHideMainOverflow = !state.isHideMainOverflow
+        SHOW_MAIN_OVERFLOW (state) {
+            state.isHideMainOverflow = true
+        },
+        HIDE_MAIN_OVERFLOW (state) {
+            state.isHideMainOverflow = false
         }
     }
 })

@@ -1,11 +1,11 @@
 <template>
   <div class="topics">
-    <!--Router Children-->
+    <!--Info Page-->
     <transition enter-active-class="animated slideInUp"
                 leave-active-class="animated slideOutDown">
-      <router-view></router-view>
+      <infoPage v-show="info.isShow"></infoPage>
     </transition>
-    <!--router children-->
+    <!--info page-->
   
     <!--Tabs-->
     <div class="tabs-wrapper">
@@ -56,6 +56,7 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import infoPage from '../../components/infoPage/infoPage'
 import contentItem from '../../components/contentItem/contentItem'
 import noMoreData from '../../components/noMoreData/noMoreData'
 export default {
@@ -78,7 +79,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'topics'
+      'topics',
+      'info'
     ]),
     topicsDataLen () {
       return this.topics.data.length
@@ -86,14 +88,16 @@ export default {
   },
   components: {
     contentItem,
-    noMoreData
+    noMoreData,
+    infoPage
   },
   methods: {
     ...mapMutations([
       'CLEAR_STATE_DATA',
       'TOGGLE_NO_MORE_DATA_STATE',
       'TOGGLE_ERROR_DATA_STATE',
-      'TOGGLE_MAIN_OVERFLOW'
+      'SHOW_MAIN_OVERFLOW',
+      'TOGGLE_INFO_PAGE_DISPLAY'
     ]),
     // 切换 tabs
     // ========
@@ -153,13 +157,15 @@ export default {
     // 跳转详情页
     // ========
     tapToInfo (id, userid) {
-      this.TOGGLE_MAIN_OVERFLOW();
-      this.$router.push({
-        name: 'info',
-        params: {
-          id,
-          userid
-        }
+      this.SHOW_MAIN_OVERFLOW();
+      this.TOGGLE_INFO_PAGE_DISPLAY();
+      this.$store.commit('COMMIT_ID', {
+        id, userid
+      });
+      // 请求数据放在了父级元素；
+      // 因为不是 router 模式，子元素在没有获得 id 的情况下，就执行了 created
+      this.$store.dispatch('fetchInfoAction', {
+        id
       })
     },
     // 跳转用户详情页

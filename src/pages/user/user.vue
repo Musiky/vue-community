@@ -153,6 +153,9 @@ export default {
     mainProgress
   },
   methods: {
+    ...mapMutations([
+      'SHOW_MAIN_OVERFLOW'
+    ]),
     // ----- log in
     tapToLogIn () {
       // 判断输入
@@ -182,7 +185,7 @@ export default {
     },
     tapToNext (routename, title) {
       // 锁定根路由
-      this.$store.commit('TOGGLE_MAIN_OVERFLOW');
+      this.$store.commit('SHOW_MAIN_OVERFLOW');
       this.$router.push({ name: routename, params: { title } })
     }
   }
@@ -261,7 +264,7 @@ export default {
       border-bottom: 1px solid $LightGray;
       .action-item {
         position: relative;
-        height: .77rem;
+        height: .88rem;
         padding-left: .24rem;
         box-sizing: border-box;
         .title {
@@ -293,7 +296,7 @@ export default {
     }
     .btn-logout {
       width: 100%;
-      height: .77rem;
+      height: .88rem;
       background: #fff;
       margin-top: .32rem;
       border-top: 1px solid $LightGray;

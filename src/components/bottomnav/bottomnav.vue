@@ -1,6 +1,6 @@
 <template>
   <mu-paper>
-    <mu-bottom-nav :value="bottomNav"
+    <mu-bottom-nav :value="bottomNav.active"
                    shift
                    @change="handleChange">
       <mu-bottom-nav-item value="topics"
@@ -20,15 +20,16 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
-  data () {
-    return {
-      bottomNav: 'topics'
-    }
+  computed: {
+    ...mapState([
+      'bottomNav'
+    ])
   },
   methods: {
     handleChange (val) {
-      this.bottomNav = val
+      this.$store.commit('HANDLE_CHANGE', val)
     }
   }
 }
