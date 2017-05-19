@@ -1,15 +1,20 @@
 <template>
     <mu-flexbox class="repliesPage"
                 orient="vertical">
+        <!--Snackbar-->
+        <mu-snackbar v-show="login.snackshow"
+                     :class="{'snackbar-warn': login.snackwarn, 'snackbar-suc': !login.snackwarn}"
+                     :message="login.snackmsg" />
+        <!--snackbar-->
     
         <!--Title-->
-        <div class="title">&nbsp&nbsp{{info.data.reply_count}}条评论</div>
+        <div class="title">&nbsp&nbsp{{info.infoData.reply_count}}条评论</div>
         <!--title-->
     
         <!--Content-->
         <mu-flexbox-item class="content-wrapper"
                          grow="1">
-            <replyItem v-for="list in info.data.replies"
+            <replyItem v-for="list in info.infoData.replies"
                        :list="list"></replyItem>
         </mu-flexbox-item>
         <!--content-->
@@ -18,7 +23,7 @@
         <transition enter-active-class="animated fadeIn"
                     leave-active-class="animated fadeOut">
             <div class="comment-bar-wrapper"
-                 v-if="replies.commentBarShow">
+                 v-if="info.commentBarShow">
                 <!--close bg-->
                 <div class="close-bg"
                      @click="hideCommentBar"></div>
@@ -29,7 +34,7 @@
                             align="center"
                             class="comment-bar">
                     <textarea v-model="comment_val"></textarea>
-                    <mu-flat-button :label="replies.isFetching?'发送中...':'发送'"
+                    <mu-flat-button :label="info.isRepliesFetching?'发送中...':'发送'"
                                     color="#41b883"
                                     @click="sendComment"></mu-flat-button>
                 </mu-flexbox>
@@ -72,8 +77,8 @@ export default {
     },
     computed: {
         ...mapState([
-            'info',
-            'replies'
+            'login',
+            'info'
         ])
     },
     components: {
@@ -84,7 +89,8 @@ export default {
             'HIDE_MAIN_OVERFLOW',
             'HIDE_REPLIES_PAGE',
             'SHOW_COMMENT_BAR',
-            'HIDE_COMMENT_BAR'
+            'HIDE_COMMENT_BAR',
+            'TOGGLE_INFO_PAGE_DISPLAY'
         ]),
         back () {
             if (!this.isNestPage) {
@@ -95,21 +101,50 @@ export default {
         },
         // 切换评论表单
         showCommentBar () {
-            this.SHOW_COMMENT_BAR()
+            // 监测用户是否登录
+            if (!this.login.data.success) {
+                this.$router.replace({ name: 'user' });
+                this.TOGGLE_INFO_PAGE_DISPLAY();
+                this.HIDE_REPLIES_PAGE();
+                this.HIDE_MAIN_OVERFLOW();
+                this.$store.commit('HANDLE_CHANGE', 'user');
+                
+                // 显示提示
+                this.$store.dispatch('showSnackbarAction', {
+                    msg: '请先登录',
+                    isWarn: true
+                })
+            } else {
+                this.SHOW_COMMENT_BAR()
+            }
         },
         hideCommentBar () {
             this.HIDE_COMMENT_BAR()
         },
         // 发送评论请求
         sendComment () {
-            let topicid = this.info.data.id,
+            let topicid = this.info.infoData.id,
                 accesstoken = getCookie('accesstoken'),
                 content = this.comment_val;
+
+            // 过滤
+            if (!content) {
+                this.$store.dispatch('showSnackbarAction', {
+                    msg: '评论不能为空',
+                    isWarn: true
+                });
+                return
+            }
+
+            // 请求
             this.$store.dispatch('sendCommentAction', {
                 topicid,
                 accesstoken,
                 content
-            })
+            });
+
+            // 清空表单
+            this.comment_val = ''
         }
     }
 }
@@ -125,6 +160,16 @@ export default {
     width: 100%;
     height: 100%;
     background: $ExtraLightGray;
+    .mu-snackbar {
+        height: 56px;
+        bottom: 0;
+    }
+    .snackbar-warn {
+        background: $orange !important;
+    }
+    .snackbar-suc {
+        background: $primary !important;
+    }
     .title {
         position: relative;
         width: 100%;

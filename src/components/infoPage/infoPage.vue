@@ -6,12 +6,12 @@
         <transition enter-active-class="animated slideInUp"
                     leave-active-class="animated slideOutDown">
             <repliesPage :isNestPage="true"
-                         v-show="replies.isShow"></repliesPage>
+                         v-show="info.isRepliesPageShow"></repliesPage>
         </transition>
         <!--replies page-->
     
         <!--Progress-->
-        <mainProgress v-show="info.isFetching"></mainProgress>
+        <mainProgress v-show="info.isInfoFetching"></mainProgress>
         <!--progress-->
     
         <!--Content-->
@@ -20,7 +20,7 @@
             <div class="content">
                 <!--title-->
                 <p class="title">
-                    {{info.data.title}}
+                    {{info.infoData.title}}
                 </p>
     
                 <!--information-->
@@ -28,20 +28,20 @@
                     <!--userinfo-->
                     <mu-flexbox class="userinfo">
                         <div class="avatar">
-                            <img :src="info.data.author.avatar_url"
+                            <img :src="info.infoData.author.avatar_url"
                                  alt="">
                         </div>
-                        <p class="username">{{info.data.author.loginname}}</p>
+                        <p class="username">{{info.infoData.author.loginname}}</p>
                     </mu-flexbox>
                     <!--time-->
                     <mu-flexbox-item class="time">
-                        {{info.data.last_reply_at}}
+                        {{info.infoData.last_reply_at | filterTime}}
                     </mu-flexbox-item>
                 </mu-flexbox>
     
                 <!--textblock-->
                 <div class="textblock"
-                     v-html="info.data.content"></div>
+                     v-html="info.infoData.content"></div>
             </div>
         </mu-flexbox-item>
         <!--content-->
@@ -64,7 +64,7 @@
                  slot="right"
                  @click="tapToComment">
                 <mu-icon-button icon="chat"></mu-icon-button>
-                <div class="reply-count">{{info.data.reply_count}}</div>
+                <div class="reply-count">{{info.infoData.reply_count}}</div>
             </div>
     
             <!--button collection-->
@@ -90,13 +90,39 @@ export default {
     computed: {
         ...mapState([
             'info',
-            'login',
-            'replies'
+            'login'
         ])
     },
     components: {
         mainProgress,
         repliesPage
+    },
+    filters: {
+        filterTime (val) {
+            if (!val) return '';
+            // 测试时间戳: 1495159106281 => 2017/5/19 9:58
+            // 正式时间戳: new Date(val).getTime()
+            let creaTime = new Date(val).getTime(),
+                curTime = new Date().getTime(),
+                diffTime = curTime - creaTime,                // 毫秒差
+                diffSecounds = Math.floor(diffTime / 1000),   // 秒差
+                diffMinutes = Math.floor(diffSecounds / 60),  // 分钟差
+                diffHours = Math.floor(diffMinutes / 60),     // 小时差
+                diffDays = Math.floor(diffHours / 24);        // 天差
+            
+            if (diffMinutes === 0) {
+                return diffSecounds + '秒前'
+            }
+            if (diffHours === 0) {
+                return diffMinutes + '分钟前'
+            }
+            if (diffDays === 0) {
+                return diffHours + '小时前'
+            }
+            if (diffDays > 0) {
+                return diffDays + '天前'
+            }
+        }
     },
     methods: {
         ...mapMutations([
@@ -115,15 +141,7 @@ export default {
         // 点击进入评论页面
         // =============
         tapToComment () {
-            // 监测用户是否登录
-            if (!this.login.data.success) {
-                this.$router.replace({ name: 'user' });
-                this.TOGGLE_INFO_PAGE_DISPLAY();
-                this.HIDE_MAIN_OVERFLOW();
-                this.$store.commit('HANDLE_CHANGE', 'user');
-            } else {
-                this.SHOW_REPLIES_PAGE()
-            }
+            this.SHOW_REPLIES_PAGE()
         }
     }
 }
@@ -141,7 +159,8 @@ export default {
     background: #fff;
     .content-wrapper {
         width: 100%;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         @include center-block();
         .content {
@@ -151,6 +170,7 @@ export default {
         .title {
             font-size: .36rem;
             font-weight: bold;
+            line-height: .72rem;
             color: $Black;
         }
         .information {
@@ -175,6 +195,9 @@ export default {
                 text-align: end;
                 color: $Gray;
             }
+        }
+        .textblock {
+            
         }
     }
     .mu-appbar {

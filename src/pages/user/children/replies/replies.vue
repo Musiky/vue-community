@@ -1,9 +1,9 @@
 <template>
-  <div class="replies">
+  <mu-flexbox orient="vertical" class="replies">
     <!--Info Page-->
     <transition enter-active-class="animated slideInUp"
                 leave-active-class="animated slideOutDown">
-      <infoPage v-show="info.isShow"
+      <infoPage v-show="info.isInfoPageShow"
                 :isNestPage="true"></infoPage>
     </transition>
     <!--info page-->
@@ -24,7 +24,7 @@
                     @info="tapToInfo"></content-item>
     </div>
     <!--content-->
-  </div>
+  </mu-flexbox>
 </template>
 
 <script>
@@ -74,8 +74,16 @@ export default {
 <style lang="scss" scoped>
 @import '../../../../assets/sass/_base.scss';
 .replies {
+  width: 100%;
+  height: 100%;
   .mu-appbar {
     background: $primary !important;
+  }
+  .content-wrapper {
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 </style>

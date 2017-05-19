@@ -3,12 +3,13 @@ import { infoActions } from '../actions/info'
 
 const info = {
     state: {
-        isFetching: false,
-        isShow: false,
+        // ----- 详情页
+        isInfoFetching: false,
+        isInfoPageShow: false,
         id: '',
         userid: '',
         error: '',
-        data: {
+        infoData: {
             good: null,
             id: '',
             author: {
@@ -25,6 +26,20 @@ const info = {
             title: '',
             top: null,
             visit_count: 0
+        },
+        // ----- 评论页
+        isRepliesFetching: false,
+        isRepliesPageShow: false,
+        commentBarShow: false,
+        repliesData: {
+            author: {
+                avatar_url: '',
+                loginname: ''
+            },
+            content: "",
+            create_at: "",
+            id: "",
+            ups: []
         }
     },
     mutations: infoMutations,

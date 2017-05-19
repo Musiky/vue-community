@@ -6,7 +6,6 @@ import topics from './modules/topics'
 import info from './modules/info'
 import login from './modules/login'
 import bottomNav from './modules/bottomNav'
-import replies from './modules/replies'
 
 const store = new Vuex.Store({
     state: {
@@ -16,8 +15,7 @@ const store = new Vuex.Store({
         topics,
         info,
         login,
-        bottomNav,
-        replies
+        bottomNav
     },
     mutations: {
         SHOW_MAIN_OVERFLOW (state) {

@@ -18,18 +18,6 @@ export const topicsActions = {
                 origin = state.data,
                 arr = [];
 
-            // 转换时间
-            data.forEach((val, index) => {
-                let time = new Date(val.last_reply_at),
-                    year = time.getFullYear(),
-                    month = time.getMonth() + 1,
-                    date = time.getDate();
-
-                let dateStr = year + '-' + month + '-' + date;
-
-                val.last_reply_at = dateStr;
-            });
-
             // 累加数组
             arr = origin.concat(data);
 

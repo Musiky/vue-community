@@ -7,6 +7,20 @@ export const TOGGLE_NO_MORE_DATA_STATE = 'TOGGLE_NO_MORE_DATA_STATE'
 export const TOGGLE_ERROR_DATA_STATE = 'TOGGLE_ERROR_DATA_STATE'
 export const TOGGLE_ISFETCHING_STATE = 'TOGGLE_ISFETCHING_STATE'
 
+// login
+export const FETCH_USER_REQ = 'FETCH_USER_REQ'
+export const FETCH_USER_SUC = 'FETCH_USER_SUC'
+export const FETCH_USER_ERR = 'FETCH_USER_ERR'
+export const TOGGLE_SNACK_SHOW = 'TOGGLE_SNACK_SHOW'
+export const TOGGLE_SNACK_STATE = 'TOGGLE_SNACK_STATE'
+export const DEFINE_SNACK_MSG = 'DEFINE_SNACK_MSG'
+export const COMMIT_USERINFO = 'COMMIT_USERINFO'
+export const LOGOUT = 'LOGOUT'
+
+// bottom nav
+export const HANDLE_CHANGE = 'HANDLE_CHANGE'
+
+// -----
 // info page
 export const FETCH_INFO_REQ = 'FETCH_INFO_REQ'
 export const FETCH_INFO_SUC = 'FETCH_INFO_SUC'
@@ -23,15 +37,8 @@ export const SEND_COMMENT_REQ = 'SEND_COMMENT_REQ'
 export const SEND_COMMENT_SUC = 'SEND_COMMENT_SUC'
 export const SEND_COMMENT_ERR = 'SEND_COMMENT_ERR'
 
-// login
-export const FETCH_USER_REQ = 'FETCH_USER_REQ'
-export const FETCH_USER_SUC = 'FETCH_USER_SUC'
-export const FETCH_USER_ERR = 'FETCH_USER_ERR'
-export const TOGGLE_SNACK_SHOW = 'TOGGLE_SNACK_SHOW'
-export const TOGGLE_SNACK_STATE = 'TOGGLE_SNACK_STATE'
-export const DEFINE_SNACK_MSG = 'DEFINE_SNACK_MSG'
-export const COMMIT_USERINFO = 'COMMIT_USERINFO'
-export const LOGOUT = 'LOGOUT'
-
-// bottom nav
-export const HANDLE_CHANGE = 'HANDLE_CHANGE'
+// thumb up
+export const TOGGLE_THUMB_REQ = 'TOGGLE_THUMB_REQ'
+export const TOGGLE_THUMB_SUC = 'TOGGLE_THUMB_SUC'
+export const TOGGLE_THUMB_ERR = 'TOGGLE_THUMB_ERR'
+// -----

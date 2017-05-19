@@ -274,6 +274,7 @@ export default {
           border-bottom: 1px solid $LightGray;
           display: flex;
           align-items: center;
+          font-size: .28rem;
         }
         .count {
           position: absolute;
@@ -301,6 +302,7 @@ export default {
       margin-top: .32rem;
       border-top: 1px solid $LightGray;
       border-bottom: 1px solid $LightGray;
+      font-size: .28rem;
     }
   }
   .details {

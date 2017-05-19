@@ -42,7 +42,8 @@ export default {
   .main {
     flex: 1;
     width: 100%;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;    
     -webkit-overflow-scrolling: touch;
   }
   .hide-overflow {

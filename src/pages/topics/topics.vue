@@ -3,7 +3,7 @@
     <!--Info Page-->
     <transition enter-active-class="animated slideInUp"
                 leave-active-class="animated slideOutDown">
-      <infoPage v-show="info.isShow"></infoPage>
+      <infoPage v-show="info.isInfoPageShow"></infoPage>
     </transition>
     <!--info page-->
   
@@ -38,7 +38,8 @@
     <!--content-->
   
     <!--Infinite Scroll-->
-    <mu-infinite-scroll :scroller="scroller"
+    <mu-infinite-scroll loadingText="正在加载..."
+                        :scroller="scroller"
                         :loading="topics.isFetching"
                         @load="loadMore" />
     <!--infinite scroll-->
@@ -73,9 +74,13 @@ export default {
     this.scroller = this.$el;
   },
   created () {
-    // 初始化第一组数据
-    this.http('all', 0, 20);
-    this.page = 1;
+    // 初始化第一组数据；
+    // 加入条件判断，只有 data 数组为空时发送请求；
+    // 否则跳转到其他页面，再回来时会重复请求
+    if (this.topics.data.length === 0) {
+      this.http('all', 0, 20);
+      this.page = 1;
+    }
   },
   computed: {
     ...mapState([
@@ -204,6 +209,12 @@ export default {
     }
     .active-line {
       background: $primary !important;
+    }
+  }
+  .mu-infinite-scroll {
+    padding: .24rem 0;
+    .mu-infinite-scroll-text {
+      font-size: .28rem;
     }
   }
 }
