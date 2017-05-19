@@ -40,7 +40,9 @@ const info = {
             create_at: "",
             id: "",
             ups: []
-        }
+        },
+        // ----- 收藏功能
+        isCollected: false
     },
     mutations: infoMutations,
     actions: infoActions

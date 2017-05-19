@@ -85,7 +85,8 @@ export default {
   computed: {
     ...mapState([
       'topics',
-      'info'
+      'info',
+      'login'
     ]),
     topicsDataLen () {
       return this.topics.data.length
@@ -102,7 +103,9 @@ export default {
       'TOGGLE_NO_MORE_DATA_STATE',
       'TOGGLE_ERROR_DATA_STATE',
       'SHOW_MAIN_OVERFLOW',
-      'TOGGLE_INFO_PAGE_DISPLAY'
+      'TOGGLE_INFO_PAGE_DISPLAY',
+      'SUC_COLLECT',
+      'DEL_COLLECTED'
     ]),
     // 切换 tabs
     // ========
@@ -161,17 +164,40 @@ export default {
     },
     // 跳转详情页
     // ========
-    tapToInfo (id, userid) {
+    tapToInfo (topicid, userid) {
       this.SHOW_MAIN_OVERFLOW();
       this.TOGGLE_INFO_PAGE_DISPLAY();
       this.$store.commit('COMMIT_ID', {
-        id, userid
+        id: topicid, userid
       });
+
       // 请求数据放在了父级元素；
       // 因为不是 router 模式，子元素在没有获得 id 的情况下，就执行了 created
       this.$store.dispatch('fetchInfoAction', {
-        id
-      })
+        topicid
+      });
+
+      // 点击打开详情页时匹配该文章是否被收藏
+      this.checkCollected(this.login.userinfo.collect_topics, topicid)      
+    },
+    // 检查该文章是否被收藏
+    // ================
+    checkCollected (collectedArr, topicid) {
+      function contains (arr, obj) {
+        let i = arr.length;
+        while (i--) {
+          if (arr[i].id === obj) {
+            return true
+          }
+        }
+        return false
+      };
+
+      if (contains(collectedArr, topicid)) {
+        this.SUC_COLLECT()
+      } else {
+        this.DEL_COLLECTED()
+      }
     },
     // 跳转用户详情页
     // ============

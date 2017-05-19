@@ -1,4 +1,4 @@
-import { FETCH_INFO_REQ, FETCH_INFO_SUC, FETCH_INFO_ERR, COMMIT_ID, TOGGLE_INFO_PAGE_DISPLAY, SHOW_REPLIES_PAGE, HIDE_REPLIES_PAGE, SHOW_COMMENT_BAR, HIDE_COMMENT_BAR, SEND_COMMENT_REQ, SEND_COMMENT_SUC, SEND_COMMENT_ERR } from '../constants/types'
+import { FETCH_INFO_REQ, FETCH_INFO_SUC, FETCH_INFO_ERR, COMMIT_ID, TOGGLE_INFO_PAGE_DISPLAY, SHOW_REPLIES_PAGE, HIDE_REPLIES_PAGE, SHOW_COMMENT_BAR, HIDE_COMMENT_BAR, SEND_COMMENT_REQ, SEND_COMMENT_SUC, SEND_COMMENT_ERR, SUC_COLLECT, DEL_COLLECTED } from '../constants/types'
 
 export const infoMutations = {
     // ----- INFO
@@ -41,5 +41,12 @@ export const infoMutations = {
     },
     SEND_COMMENT_ERR(state) {
         state.isRepliesFetching = false
+    },
+    // collect
+    SUC_COLLECT(state) {
+        state.isCollected = true
+    },
+    DEL_COLLECTED(state) {
+        state.isCollected = false
     }
 }

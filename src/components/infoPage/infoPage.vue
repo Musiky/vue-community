@@ -1,6 +1,6 @@
 <template>
-    <mu-flexbox orient="vertical"
-                class="info">
+    <mu-flexbox class="infopage"
+                orient="vertical">
     
         <!--Replies Page-->
         <transition enter-active-class="animated slideInUp"
@@ -69,7 +69,17 @@
     
             <!--button collection-->
             <mu-icon-button icon="star_border"
-                            slot="right"></mu-icon-button>
+                            iconClass="collect"
+                            slot="right"
+                            v-show="!info.isCollected"
+                            key="collect"
+                            @click="tapToToggleCollect"></mu-icon-button>
+            <mu-icon-button icon="star"
+                            iconClass="collected"
+                            slot="right"
+                            v-show="info.isCollected"
+                            key="collected"
+                            @click="tapToToggleCollect"></mu-icon-button>
         </mu-appbar>
         <!--appbar-->
     </mu-flexbox>
@@ -77,9 +87,15 @@
 
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { getCookie } from '../../assets/js/cookies.js'
 import mainProgress from '../../components/mainProgress/mainProgress'
 import repliesPage from '../../components/repliesPage/repliesPage'
 export default {
+    data () {
+        return {
+            isCollected: false
+        }
+    },
     props: {
         // ----- 是否是嵌套的页面
         isNestPage: {
@@ -109,7 +125,7 @@ export default {
                 diffMinutes = Math.floor(diffSecounds / 60),  // 分钟差
                 diffHours = Math.floor(diffMinutes / 60),     // 小时差
                 diffDays = Math.floor(diffHours / 24);        // 天差
-            
+
             if (diffMinutes === 0) {
                 return diffSecounds + '秒前'
             }
@@ -128,7 +144,10 @@ export default {
         ...mapMutations([
             'HIDE_MAIN_OVERFLOW',
             'TOGGLE_INFO_PAGE_DISPLAY',
-            'SHOW_REPLIES_PAGE'
+            'SHOW_REPLIES_PAGE',
+            'HIDE_REPLIES_PAGE',
+            'SUC_COLLECT',
+            'DEL_COLLECTED'
         ]),
         // 返回到父级路由
         // ============
@@ -142,14 +161,49 @@ export default {
         // =============
         tapToComment () {
             this.SHOW_REPLIES_PAGE()
+        },
+        // 点击切换收藏状态
+        // =============
+        tapToToggleCollect () {
+            let accesstoken = getCookie('accesstoken'),
+                topicid = this.info.id,
+                loginname = this.login.data.loginname;
+
+            // 未登录
+            if (!this.login.data.success) {
+                this.$router.replace({ name: 'user' });
+                this.TOGGLE_INFO_PAGE_DISPLAY();
+                this.HIDE_REPLIES_PAGE();
+                this.HIDE_MAIN_OVERFLOW();
+                this.$store.commit('HANDLE_CHANGE', 'user');
+
+                // 显示提示
+                this.$store.dispatch('showSnackbarAction', {
+                    msg: '请先登录',
+                    isWarn: true
+                });                
+            } 
+            // 已登录
+            else {
+                if (!this.info.isCollected) {
+                    this.$store.dispatch('collectTopic', {
+                        accesstoken, topicid, loginname
+                    })
+                }
+                else if (this.info.isCollected) {
+                    this.$store.dispatch('delCollectedTopic', {
+                        accesstoken, topicid, loginname
+                    })
+                }
+            }
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '../../assets/sass/_base.scss';
-.info {
+.infopage {
     position: fixed;
     top: 0;
     left: 0;
@@ -196,9 +250,7 @@ export default {
                 color: $Gray;
             }
         }
-        .textblock {
-            
-        }
+        .textblock {}
     }
     .mu-appbar {
         color: $Black !important;
@@ -229,6 +281,9 @@ export default {
                 font-size: .2rem;
                 color: #fff;
             }
+        }
+        .collected {
+            color: $yellow;
         }
     }
 }

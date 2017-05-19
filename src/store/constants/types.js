@@ -37,8 +37,7 @@ export const SEND_COMMENT_REQ = 'SEND_COMMENT_REQ'
 export const SEND_COMMENT_SUC = 'SEND_COMMENT_SUC'
 export const SEND_COMMENT_ERR = 'SEND_COMMENT_ERR'
 
-// thumb up
-export const TOGGLE_THUMB_REQ = 'TOGGLE_THUMB_REQ'
-export const TOGGLE_THUMB_SUC = 'TOGGLE_THUMB_SUC'
-export const TOGGLE_THUMB_ERR = 'TOGGLE_THUMB_ERR'
+// collect
+export const SUC_COLLECT = 'SUC_COLLECT'
+export const DEL_COLLECTED = 'DEL_COLLECTED'
 // -----

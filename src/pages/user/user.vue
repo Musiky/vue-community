@@ -63,7 +63,7 @@
                     class="action-wrapper">
           <!--item-->
           <mu-flexbox class="action-item"
-                      @click.native="tapToNext('collection', '我收藏的话题')">
+                      @click.native="tapToUserTopics('我收藏的话题', 'collect_topics')">
             <mu-icon value="star"
                      :size="20"
                      style="color: #fcc015"></mu-icon>
@@ -78,7 +78,7 @@
   
           <!--item-->
           <mu-flexbox class="action-item"
-                      @click.native="tapToNext('replies', '我参与的话题')">
+                      @click.native="tapToUserTopics('我参与的话题', 'recent_replies')">
             <mu-icon value="chat"
                      :size="20"
                      style="color: #00b1fe"></mu-icon>
@@ -93,7 +93,7 @@
   
           <!--item-->
           <mu-flexbox class="action-item"
-                      @click.native="tapToNext('mytopic', '我最近的话题')">
+                      @click.native="tapToUserTopics('我最近的话题', 'recent_topics')">
             <mu-icon value="bubble_chart"
                      :size="20"
                      style="color: #f86161"></mu-icon>
@@ -183,10 +183,11 @@ export default {
         isWarn
       })
     },
-    tapToNext (routename, title) {
+    // ----- 跳转到 usertopics
+    tapToUserTopics (title, type) {
       // 锁定根路由
       this.$store.commit('SHOW_MAIN_OVERFLOW');
-      this.$router.push({ name: routename, params: { title } })
+      this.$router.push({ name: 'usertopics', params: { title, type } })
     }
   }
 }

@@ -1,16 +1,16 @@
-import { FETCH_INFO_REQ, FETCH_INFO_SUC, FETCH_INFO_ERR, COMMIT_ID, TOGGLE_INFO_PAGE_DISPLAY, SHOW_REPLIES_PAGE, HIDE_REPLIES_PAGE, SHOW_COMMENT_BAR, HIDE_COMMENT_BAR, SEND_COMMENT_REQ, SEND_COMMENT_SUC, SEND_COMMENT_ERR } from '../constants/types'
+import { FETCH_INFO_REQ, FETCH_INFO_SUC, FETCH_INFO_ERR, COMMIT_ID, TOGGLE_INFO_PAGE_DISPLAY, SHOW_REPLIES_PAGE, HIDE_REPLIES_PAGE, SHOW_COMMENT_BAR, HIDE_COMMENT_BAR, SEND_COMMENT_REQ, SEND_COMMENT_SUC, SEND_COMMENT_ERR, SUC_COLLECT, DEL_COLLECTED } from '../constants/types'
 import axios from 'axios'
 
 export const infoActions = {
     /**
      * 请求详情数据
-     * @param {id} [String] topic id
+     * @param {topicid} [String] topic id
      */
     fetchInfoAction({ commit, state }, params) {
         commit('FETCH_INFO_REQ');
         axios({
             method: 'get',
-            url: 'topic/' + params.id
+            url: 'topic/' + params.topicid
         }).then((res) => {
             let data = res.data.data;
 
@@ -43,7 +43,7 @@ export const infoActions = {
             commit('HIDE_COMMENT_BAR');
             // 请求成功后，再次请求详情数据，刷新页面
             dispatch('fetchInfoAction', {
-                id: params.topicid
+                topicid: params.topicid
             })
         }).catch((error) => {
             commit('SEND_COMMENT_ERR')
@@ -63,13 +63,53 @@ export const infoActions = {
             accesstoken: params.accesstoken
         }).then((res) => {
             // 给自己的评论点赞，服务器会返回一段错误字符串
-            alert(res.data.error_msg)
+            if (res.data.error_msg) {
+                alert(res.data.error_msg)
+            }
             // 请求成功后，再次请求详情数据，刷新页面
             dispatch('fetchInfoAction', {
-                id: params.topicid
+                topicid: params.topicid
             })
         }).catch((errorr) => {
             alert(error)
+        })
+    },
+    /**
+     * 收藏主题
+     * @param {accesstoken} [String] 用户登录 token 
+     * @param {topic_id} [String]    被收藏的主题 id
+     * @param {loginname} [String]      用户 id
+     */
+    collectTopic({ commit, state, dispatch }, params) {
+        axios.post('topic/collect', {
+            accesstoken: params.accesstoken,
+            topic_id: params.topicid
+        }).then((res) => {
+            if (res.data.success) {
+                commit('SUC_COLLECT');
+                return dispatch('fetchUserInfoAcrion', {
+                    loginname: params.loginname
+                })
+            }
+        })
+    },
+    /**
+     * 取消收藏主题
+     * @param {accesstoken} [String] 用户登录 token 
+     * @param {topic_id} [String]    被取消收藏的主题 id
+     * @param {loginname} [String]      用户 id
+     */
+    delCollectedTopic({ commit, state, dispatch }, params) {
+        axios.post('topic/de_collect', {
+            accesstoken: params.accesstoken,
+            topic_id: params.topicid
+        }).then((res) => {
+            if (res.data.success) {
+                commit('DEL_COLLECTED');
+                return dispatch('fetchUserInfoAcrion', {
+                    loginname: params.loginname
+                })
+            }
         })
     }
 }

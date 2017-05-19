@@ -10,7 +10,15 @@ const login = {
         data: {
             success: false
         },
-        userinfo: {},
+        userinfo: {
+            avatar_url: '',
+            collect_topics: [],
+            create_at: '',
+            loginname: '',
+            recent_replies: [],
+            recent_topics: [],
+            score: 0
+        },
         // snackbar
         snackshow: false,
         snackwarn: null,

@@ -107,7 +107,7 @@ export default {
         .ups-count {
             font-size: .24rem;
             color: $ExtraLightBlack;
-            margin-left: -.24rem;
+            margin-left: -.18rem;
         }
     }
     .avatar {
