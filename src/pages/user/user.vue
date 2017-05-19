@@ -55,6 +55,12 @@
           <div class="info">
             <div class="username">{{login.data.loginname}}</div>
             <div class="userid">ID: {{login.data.id}}</div>
+            <mu-flexbox class="score" justify="center">
+              <mu-icon value="stars"
+                       color="rgb(252, 192, 21)"
+                       :size="18"></mu-icon>
+              <div>&nbsp{{login.userinfo.score}}</div>
+            </mu-flexbox>
           </div>
         </mu-flexbox>
   
@@ -245,6 +251,7 @@ export default {
         }
       }
       .info {
+        position: relative;
         flex: 1;
         margin-left: .24rem;
         .username {
@@ -255,6 +262,15 @@ export default {
         .userid {
           font-size: .22;
           margin-top: .08rem;
+        }
+        .score {          
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 1.2rem;
+          height: .42rem;
+          border-radius: 5rem;
+          background: $ExtraLightGray;
         }
       }
     }
