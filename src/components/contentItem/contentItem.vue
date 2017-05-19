@@ -162,6 +162,7 @@ export default {
                 height: 1rem;
                 border-radius: 100%;
                 overflow: hidden;
+                background: $ExtraLightGray;
                 @include float();
                 img {
                     width: 1rem;
@@ -229,6 +230,7 @@ export default {
         .avatar {
             width: .88rem;
             height: .88rem;
+            background: $ExtraLightGray;
             border-radius: 100%;
             overflow: hidden;
             img {
