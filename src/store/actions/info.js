@@ -26,6 +26,7 @@ export const infoActions = {
     },
     /**
      * 发送评论请求
+     * @type  {post}
      * @param {topicid} [String]     当前话题的 id
      * @param {accesstoken} [String] 用户的登录 token
      * @param {content} [String]     评论内容
@@ -54,6 +55,7 @@ export const infoActions = {
      * 发送点赞请求
      * 「接口会自动判断用户是否已点赞，如果否，则点赞；如果是，则取消点赞。
      * 点赞的动作反应在返回数据的 action 字段中，up or down」
+     * @type  {post}
      * @param {replyid} [String]     该回复信息的 id
      * @param {topicid} [String]     该主题的 id
      * @param {accesstoken} [String] 用户的登录 token
@@ -76,6 +78,7 @@ export const infoActions = {
     },
     /**
      * 收藏主题
+     * @type  {post}
      * @param {accesstoken} [String] 用户登录 token 
      * @param {topic_id} [String]    被收藏的主题 id
      * @param {loginname} [String]      用户 id
@@ -95,6 +98,7 @@ export const infoActions = {
     },
     /**
      * 取消收藏主题
+     * @type  {post}
      * @param {accesstoken} [String] 用户登录 token 
      * @param {topic_id} [String]    被取消收藏的主题 id
      * @param {loginname} [String]      用户 id

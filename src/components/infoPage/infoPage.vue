@@ -64,7 +64,7 @@
                  slot="right"
                  @click="tapToComment">
                 <mu-icon-button icon="chat"></mu-icon-button>
-                <div class="reply-count">{{info.infoData.reply_count}}</div>
+                <div class="reply-count" v-show="info.infoData.reply_count > 0">{{info.infoData.reply_count}}</div>
             </div>
     
             <!--button collection-->
@@ -144,6 +144,7 @@ export default {
         ...mapMutations([
             'HIDE_MAIN_OVERFLOW',
             'TOGGLE_INFO_PAGE_DISPLAY',
+            'CLEAR_INFO_DATA',
             'SHOW_REPLIES_PAGE',
             'HIDE_REPLIES_PAGE',
             'SUC_COLLECT',
@@ -156,6 +157,7 @@ export default {
                 this.HIDE_MAIN_OVERFLOW();
             }
             this.TOGGLE_INFO_PAGE_DISPLAY();
+            this.CLEAR_INFO_DATA();
         },
         // 点击进入评论页面
         // =============

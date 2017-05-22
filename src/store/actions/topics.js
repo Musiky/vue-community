@@ -2,7 +2,13 @@ import { FETCH_TOPICS_REQ, FETCH_TOPICS_SUC, FETCH_TOPICS_ERR, CLEAR_STATE_DATA,
 import axios from 'axios'
 
 export const topicsActions = {
-    // 请求 topics 数据
+    /**
+     * 请求主题列表数据
+     * @type  {get}
+     * @param {tab} [String]   主题类型
+     * @param {page} [Number]  分页
+     * @param {limit} [Number] 每次请求获取数据个数
+     */
     fetchTopicsAction({ commit, state }, params) {
         commit('FETCH_TOPICS_REQ');
         axios({

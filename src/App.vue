@@ -4,6 +4,13 @@
     <appbar :title="this.$route.params.title"></appbar>
     <!--appbar-->
   
+    <!--Release-->
+    <transition enter-active-class="animated slideInUp"
+                leave-active-class="animated slideOutDown">
+      <releasePage v-show="release.isReleasePageShow"></releasePage>
+    </transition>
+    <!--release-->
+  
     <!--Router View-->
     <router-view class="main"
                  :class="{'hide-overflow': isHideMainOverflow}"></router-view>
@@ -19,15 +26,18 @@
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import appbar from './components/appbar/appbar'
 import bottomnav from './components/bottomnav/bottomnav'
+import releasePage from './components/releasePage/releasePage'
 export default {
   computed: {
     ...mapState([
-      'isHideMainOverflow'
+      'isHideMainOverflow',
+      'release'
     ])
   },
   components: {
     appbar,
-    bottomnav
+    bottomnav,
+    releasePage
   },
 
 }
@@ -43,7 +53,7 @@ export default {
     flex: 1;
     width: 100%;
     overflow-x: hidden;
-    overflow-y: auto;    
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
   .hide-overflow {

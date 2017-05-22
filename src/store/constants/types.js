@@ -27,6 +27,7 @@ export const FETCH_INFO_SUC = 'FETCH_INFO_SUC'
 export const FETCH_INFO_ERR = 'FETCH_INFO_ERR'
 export const COMMIT_ID = 'COMMIT_ID'
 export const TOGGLE_INFO_PAGE_DISPLAY = 'TOGGLE_INFO_PAGE_DISPLAY'
+export const CLEAR_INFO_DATA = 'CLEAR_INFO_DATA'
 
 // replies page
 export const SHOW_REPLIES_PAGE = 'SHOW_REPLIES_PAGE'
@@ -41,3 +42,21 @@ export const SEND_COMMENT_ERR = 'SEND_COMMENT_ERR'
 export const SUC_COLLECT = 'SUC_COLLECT'
 export const DEL_COLLECTED = 'DEL_COLLECTED'
 // -----
+
+// message
+export const FETCH_MSG_REQ = 'FETCH_MSG_REQ'
+export const FETCH_MSG_SUC = 'FETCH_MSG_SUC'
+export const FETCH_MSG_ERR = 'FETCH_MSG_ERR'
+export const CLEAR_MSG_DATA = 'CLEAR_MSG_DATA'
+export const FETCH_MARK_ALL_REQ = 'FETCH_MARK_ALL_REQ'
+export const FETCH_MARK_ALL_SUC = 'FETCH_MARK_ALL_SUC'
+export const FETCH_MARK_ALL_ERR = 'FETCH_MARK_ALL_ERR'
+
+// release
+export const SHOW_RELEASE_PAGE = 'SHOW_RELEASE_PAGE'
+export const HIDE_RELEASE_PAGE = 'HIDE_RELEASE_PAGE'
+export const FETCH_RELEASE_REQ = 'FETCH_RELEASE_REQ'
+export const FETCH_RELEASE_SUC = 'FETCH_RELEASE_SUC'
+export const FETCH_RELEASE_ERR = 'FETCH_RELEASE_ERR'
+export const SHOW_DIALOG = 'SHOW_DIALOG'
+export const HIDE_DIALOG = 'HIDE_DIALOG'

@@ -20,6 +20,26 @@ export const infoMutations = {
     TOGGLE_INFO_PAGE_DISPLAY(state) {
         state.isInfoPageShow = !state.isInfoPageShow
     },
+    CLEAR_INFO_DATA(state) {
+        state.infoData = {
+            good: null,
+            id: '',
+            author: {
+                avatar_url: '',
+                loginname: ''
+            },
+            content: '',
+            create_at: '',
+            author_id: '',
+            last_reply_at: '',
+            replies: [],
+            reply_count: 0,
+            tab: '',
+            title: '',
+            top: null,
+            visit_count: 0
+        }
+    },
     // ----- REPLIES
     SHOW_REPLIES_PAGE(state) {
         state.isRepliesPageShow = true

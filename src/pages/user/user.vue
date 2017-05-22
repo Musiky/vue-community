@@ -160,7 +160,9 @@ export default {
   },
   methods: {
     ...mapMutations([
-      'SHOW_MAIN_OVERFLOW'
+      'SHOW_MAIN_OVERFLOW',
+      'LOGOUT',
+      'CLEAR_MSG_DATA'
     ]),
     // ----- log in
     tapToLogIn () {
@@ -176,7 +178,8 @@ export default {
     },
     // ----- log out
     tapToLogOut () {
-      this.$store.commit('LOGOUT');
+      this.LOGOUT();
+      this.CLEAR_MSG_DATA();
       this.$store.dispatch('showSnackbarAction', {
         msg: '已退出登录',
         isWarn: false

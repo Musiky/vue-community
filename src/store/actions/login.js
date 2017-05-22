@@ -5,6 +5,7 @@ import axios from 'axios'
 export const loginActions = {
     /**
      * 用户登录请求
+     * @type  {post}
      * @param {accesstoken} [String] 用户登录token
      */
     fetchUserAction({ commit, state, dispatch }, params) {
@@ -15,7 +16,7 @@ export const loginActions = {
             params: {
                 accesstoken: params.accesstoken
             }
-        }).then((res) => {       
+        }).then((res) => {
             // 显示登录成功提示     
             dispatch('showSnackbarAction', {
                 msg: '登录成功',
@@ -33,7 +34,12 @@ export const loginActions = {
             // 请求用户详情数据
             dispatch('fetchUserInfoAcrion', {
                 loginname: res.data.loginname
-            })            
+            });
+
+            // 获取未读信息
+            return dispatch('fetchMessageAction', {
+                accesstoken: params.accesstoken
+            })
         }).catch((error) => {
             dispatch('showSnackbarAction', {
                 msg: '登录失败，请检查网络或accesstoken是否正确',
@@ -47,9 +53,10 @@ export const loginActions = {
     },
     /**
      * 请求用户详情数据
+     * @type  {get}
      * @param {loginname} [String] 用户名 
      */
-    fetchUserInfoAcrion ({commit, state}, params) {
+    fetchUserInfoAcrion({ commit, state }, params) {
         axios({
             method: 'get',
             url: 'user/' + params.loginname

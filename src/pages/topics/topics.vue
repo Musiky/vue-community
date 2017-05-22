@@ -28,6 +28,12 @@
     </div>
     <!--tabs-->
   
+    <!--Refresh Control-->
+    <mu-refresh-control :refreshing="refreshing"
+                        :trigger="trigger"
+                        @refresh="refresh" />
+    <!--refresh control-->
+
     <!--Content-->
     <div class="content-wrapper">
       <content-item v-for="list in topics.data"
@@ -67,11 +73,15 @@ export default {
       activeTab: 'all',
       // ----- infinit scroll
       scroller: null,
-      page: 0
+      page: 0,
+      // ----- refresh control
+      refreshing: false,
+      trigger: null
     }
   },
   mounted () {
     this.scroller = this.$el;
+    this.trigger = this.$el;
   },
   created () {
     // 初始化第一组数据；
@@ -159,8 +169,18 @@ export default {
       if (!this.topics.isFetching && !this.topics.noMoreData) {
         this.page += 1;
         this.http(this.activeTab, this.page, 20);
-        console.log(this.page)
       }
+    },
+    // 下拉刷新
+    // =======
+    refresh () {
+      this.refreshing = true;
+      this.CLEAR_STATE_DATA();
+      this.http(this.activeTab, 0, 20);
+      this.page = 1;
+      setTimeout(() => {
+        this.refreshing = false;
+      }, 1000)
     },
     // 跳转详情页
     // ========
@@ -178,7 +198,7 @@ export default {
       });
 
       // 点击打开详情页时匹配该文章是否被收藏
-      this.checkCollected(this.login.userinfo.collect_topics, topicid)      
+      this.checkCollected(this.login.userinfo.collect_topics, topicid)
     },
     // 检查该文章是否被收藏
     // ================
@@ -212,6 +232,7 @@ export default {
 @import '../../assets/sass/_base.scss';
 
 .topics {
+  position: relative;
   background: $ExtraLightGray;
   .mu-circle {
     border-top-color: $primary !important;
