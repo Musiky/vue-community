@@ -217,8 +217,8 @@ export default {
     },
     // 跳转用户详情页
     // ============
-    tapToUserInfo (e) {
-      alert(e)
+    tapToUserInfo (topicid, userid, username) {
+      alert(username)
     }
   }
 }

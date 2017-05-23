@@ -1,7 +1,7 @@
 import { FETCH_INFO_REQ, FETCH_INFO_SUC, FETCH_INFO_ERR, COMMIT_ID, TOGGLE_INFO_PAGE_DISPLAY, SHOW_REPLIES_PAGE, HIDE_REPLIES_PAGE, SHOW_COMMENT_BAR, HIDE_COMMENT_BAR, SEND_COMMENT_REQ, SEND_COMMENT_SUC, SEND_COMMENT_ERR, SUC_COLLECT, DEL_COLLECTED } from '../constants/types'
 
 export const infoMutations = {
-    // ----- INFO
+    // ----- info
     FETCH_INFO_REQ(state) {
         state.isInfoFetching = true
     },
@@ -20,6 +20,7 @@ export const infoMutations = {
     TOGGLE_INFO_PAGE_DISPLAY(state) {
         state.isInfoPageShow = !state.isInfoPageShow
     },
+    // clear data
     CLEAR_INFO_DATA(state) {
         state.infoData = {
             good: null,
@@ -40,7 +41,7 @@ export const infoMutations = {
             visit_count: 0
         }
     },
-    // ----- REPLIES
+    // ----- replies
     SHOW_REPLIES_PAGE(state) {
         state.isRepliesPageShow = true
     },

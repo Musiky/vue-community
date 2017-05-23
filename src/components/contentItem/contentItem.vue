@@ -9,7 +9,8 @@
                 <div class="avatar"
                      :data-id="list.id"
                      :data-userid="list.author_id"
-                     @click="tapToUserInfo">
+                     :data-username="list.author.loginname"
+                     @click="tapToUserInfo($event)">
                     <img :src="list.author.avatar_url"
                          alt="">
                 </div>
@@ -61,12 +62,14 @@
         <!--complete template-->
     
         <!--Simple Template-->
-        <mu-flexbox class="simple" v-if="simple">
+        <mu-flexbox class="simple"
+                    v-if="simple">
             <!--avatar-->
             <div class="avatar"
                  :data-id="list.id"
                  :data-userid="list.author_id"
-                 @click="tapToUserInfo">
+                 :data-username="list.author.loginname"
+                 @click="tapToUserInfo($event)">
                 <img :src="list.author.avatar_url"
                      alt="">
             </div>
@@ -91,6 +94,7 @@
 </template>
 
 <script>
+import { filterTime } from '../../assets/js/filters.js'
 export default {
     props: {
         list: {
@@ -103,42 +107,23 @@ export default {
         }
     },
     filters: {
-        filterTime (val) {
-            if (!val) return '';
-            // 测试时间戳: 1495159106281 => 2017/5/19 9:58
-            // 正式时间戳: new Date(val).getTime()
-            let creaTime = new Date(val).getTime(),
-                curTime = new Date().getTime(),
-                diffTime = curTime - creaTime,                // 毫秒差
-                diffSecounds = Math.floor(diffTime / 1000),   // 秒差
-                diffMinutes = Math.floor(diffSecounds / 60),  // 分钟差
-                diffHours = Math.floor(diffMinutes / 60),     // 小时差
-                diffDays = Math.floor(diffHours / 24);        // 天差
-            
-            if (diffMinutes === 0) {
-                return diffSecounds + '秒前'
-            }
-            if (diffHours === 0) {
-                return diffMinutes + '分钟前'
-            }
-            if (diffDays === 0) {
-                return diffHours + '小时前'
-            }
-            if (diffDays > 0) {
-                return diffDays + '天前'
-            }
-        }
+        filterTime
     },
     methods: {
+        // 点击进入详情页
+        // ============
         tapToInfo (e) {
             let info_id = e.currentTarget.dataset.id,
                 user_id = e.currentTarget.dataset.userid
             this.$emit('info', info_id, user_id);
         },
+        // 点击进入用户详情页
+        // ===============
         tapToUserInfo (e) {
             let info_id = e.currentTarget.dataset.id,
-                user_id = e.currentTarget.dataset.userid
-            this.$emit('userInfo', info_id, user_id);
+                user_id = e.currentTarget.dataset.userid,
+                username = e.currentTarget.dataset.username;
+            this.$emit('userInfo', info_id, user_id, username);
         }
     }
 }

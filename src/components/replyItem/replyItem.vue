@@ -25,6 +25,11 @@
                 {{list.author.loginname}}
             </div>
     
+            <!--reply time-->
+            <div class="reply-time">
+                {{list.create_at | filterTime}}
+            </div>
+    
             <!--content-->
             <div class="content"
                  v-html="list.content"></div>
@@ -36,6 +41,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { getCookie } from '../../assets/js/cookies.js'
+import { filterTime } from '../../assets/js/filters.js'
 export default {
     data () {
         let accesstoken = getCookie('accesstoken');
@@ -54,6 +60,9 @@ export default {
             'login'
         ])
     },
+    filters: {
+        filterTime
+    },
     methods: {
         ...mapMutations([
             'TOGGLE_INFO_PAGE_DISPLAY',
@@ -69,9 +78,9 @@ export default {
                 this.$router.replace({ name: 'user' });
                 this.TOGGLE_INFO_PAGE_DISPLAY();
                 this.HIDE_REPLIES_PAGE();
-                this.HIDE_MAIN_OVERFLOW();                
+                this.HIDE_MAIN_OVERFLOW();
                 this.$store.commit('HANDLE_CHANGE', 'user');
-                
+
                 // 显示提示
                 this.$store.dispatch('showSnackbarAction', {
                     msg: '请先登录',
@@ -128,6 +137,11 @@ export default {
         }
         .content {
             margin-top: -.12rem;
+        }
+        .reply-time {
+            margin-top: .12rem;
+            font-size: .2rem;
+            color: lighten($ExtraLightBlack, 20%);
         }
     }
 }

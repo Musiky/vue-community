@@ -1,10 +1,10 @@
 <template>
     <div class="message">
-        <!--Snackbar-->
-        <mu-snackbar v-show="login.snackshow"
-                     :class="{'snackbar-warn': login.snackwarn, 'snackbar-suc': !login.snackwarn}"
-                     :message="login.snackmsg" />
-        <!--snackbar-->
+        <!--Refresh Control-->
+        <mu-refresh-control :refreshing="common.refresh.isShow"
+                            :trigger="trigger"
+                            @refresh="refresh" />
+        <!--refresh control-->
     
         <!--Info Page-->
         <transition enter-active-class="animated slideInUp"
@@ -59,15 +59,24 @@
                     <!--list-->
                     <div class="list"
                          :data-topicid="list.topic.id"
-                         v-for="list in message.data.hasnot_read_messages"                         
+                         v-for="list in message.data.hasnot_read_messages"
                          @click="tapToInfo($event)">
-                        <span class="author-name">
-                            {{list.author.loginname}}
-                        </span>
-                        <span>&nbsp回复了你的话题&nbsp</span>
-                        <span class="topic-title">
-                            {{list.topic.title}}
-                        </span>
+    
+                        <!--from-->
+                        <mu-flexbox justify="space-between">
+                            <div class="username">来自
+                                <b>{{list.author.loginname}}</b>
+                            </div>
+                            <div class="time">{{list.reply.create_at | filterTime}}</div>
+                        </mu-flexbox>
+    
+                        <!--body-->
+                        <div class="body">
+                            <span>回复了你的话题&nbsp</span>
+                            <span class="topic-title">
+                                {{list.topic.title}}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,13 +98,21 @@
                          :data-topicid="list.topic.id"
                          v-for="(list, index) in message.data.has_read_messages"
                          @click="tapToInfo($event)">
-                        <span class="author-name">
-                            {{list.author.loginname}}
-                        </span>
-                        <span>&nbsp回复了你的话题&nbsp</span>
-                        <span class="topic-title">
-                            {{list.topic.title}}
-                        </span>
+                        <!--from-->
+                        <mu-flexbox justify="space-between">
+                            <div class="username">来自
+                                <b>{{list.author.loginname}}</b>
+                            </div>
+                            <div class="time">{{list.reply.create_at | filterTime}}</div>
+                        </mu-flexbox>
+    
+                        <!--body-->
+                        <div class="body">
+                            <span>回复了你的话题&nbsp</span>
+                            <span class="topic-title">
+                                {{list.topic.title}}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -107,13 +124,26 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { getCookie } from '../../assets/js/cookies.js'
+import { filterTime } from '../../assets/js/filters.js'
 import infoPage from '../../components/infoPage/infoPage'
 export default {
+    data () {
+        let accesstoken = getCookie('accesstoken');
+        return {
+            accesstoken,
+            // ----- refresh control
+            trigger: null
+        }
+    },
+    mounted () {
+        this.trigger = this.$el;
+    },
     computed: {
         ...mapState([
             'login',
             'message',
-            'info'
+            'info',
+            'common'
         ]),
         ...mapGetters([
             'HAS_NOT_READ_MESSAGES_COUNT'
@@ -121,6 +151,9 @@ export default {
     },
     components: {
         infoPage
+    },
+    filters: {
+        filterTime
     },
     methods: {
         ...mapMutations([
@@ -140,7 +173,7 @@ export default {
         // 标记全部已读
         // ==========
         tapMarkAll () {
-            let accesstoken = getCookie('accesstoken');
+            let accesstoken = this.accesstoken
             this.$store.dispatch('fetchMarkAllAction', {
                 accesstoken
             })
@@ -183,6 +216,15 @@ export default {
             } else {
                 this.DEL_COLLECTED()
             }
+        },
+        // 上拉刷新
+        // =======
+        refresh () {
+            let accesstoken = this.accesstoken
+            this.$store.dispatch('fetchMessageAction', {
+                accesstoken,
+                isRefresh: true
+            })
         }
     }
 }
@@ -192,16 +234,6 @@ export default {
 @import '../../assets/sass/_base.scss';
 .message {
     background: #fff;
-    .mu-snackbar {
-        height: 56px;
-        bottom: 56px;
-    }
-    .snackbar-warn {
-        background: $orange !important;
-    }
-    .snackbar-suc {
-        background: $primary !important;
-    }
     .login {
         margin-top: 2rem;
         .img {
@@ -258,15 +290,25 @@ export default {
                     &:last-child {
                         border-bottom: none;
                     }
+                    .username,
+                    .time {
+                        color: lighten($ExtraLightBlack, 40%);
+                    }
+                    .body {
+                        margin-top: .12rem;
+                    }
                 }
             }
         }
-        .new-msgs {
+        .past-msgs {
             .lists {
-                .author-name,
-                .topic-title {
-                    color: $Black;
-                    font-weight: bold;
+                .list {
+                    .time {
+                        color: lighten($ExtraLightBlack, 50%) !important;
+                    }
+                    .body {
+                        color: lighten($ExtraLightBlack, 50%);
+                    }
                 }
             }
         }

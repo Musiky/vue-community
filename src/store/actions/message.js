@@ -6,9 +6,16 @@ export const messageActions = {
      * 获取已读和未读信息
      * @type  {get}
      * @param {accesstoken} [String] 
+     * @param {isRefresh} [Boolean]
      */
     fetchMessageAction({ commit, state, dispatch }, params) {
-        commit('FETCH_MSG_REQ');
+        let isRefresh = params.isRefresh || false;
+
+        if (!isRefresh) {
+            commit('FETCH_MSG_REQ');
+        } else {
+            commit('SHOW_REFRESH');
+        }
         axios({
             method: 'get',
             url: 'messages',
@@ -16,6 +23,7 @@ export const messageActions = {
                 accesstoken: params.accesstoken
             }
         }).then((res) => {
+            commit('HIDE_REFRESH');
             commit('FETCH_MSG_SUC', {
                 data: res.data.data
             })
