@@ -1,14 +1,7 @@
 <template>
     <div class="releasePage">
         <!--Dialog-->
-        <mu-dialog :open="release.dialog.isShow"
-                   title="提示">
-            {{release.dialog.msg}}
-            <mu-flat-button label="确定"
-                            slot="actions"
-                            primary
-                            @click="close" />
-        </mu-dialog>
+        <tipdialog></tipdialog>
         <!--dialog-->
     
         <!--Edit page-->
@@ -72,6 +65,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { getCookie } from '../../assets/js/cookies.js'
+import tipdialog from '../../components/tipdialog/tipdialog'
 import editPage from './editPage/editPage'
 export default {
     data () {
@@ -91,13 +85,15 @@ export default {
         ])
     },
     components: {
+        tipdialog,
         editPage
     },
     methods: {
         ...mapMutations([
             'HIDE_RELEASE_PAGE',
             'HIDE_MAIN_OVERFLOW',
-            'HIDE_DIALOG'
+            'SHOW_TIP_DIALOG',
+            'HIDE_TIP_DIALOG'
         ]),
         // 返回上一页
         // ========
@@ -135,12 +131,9 @@ export default {
         },
         // dialog 显示
         open (text) {
-            this.$store.dispatch('dialogShow', {
+            this.$store.commit('SHOW_TIP_DIALOG', {
                 msg: text
             })
-        },
-        close () {
-            this.HIDE_DIALOG()
         },
         // edit page 显示
         showEdit () {

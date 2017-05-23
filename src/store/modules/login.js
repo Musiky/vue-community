@@ -18,11 +18,7 @@ const login = {
             recent_replies: [],
             recent_topics: [],
             score: 0
-        },
-        // snackbar
-        snackshow: false,
-        snackwarn: null,
-        snackmsg: ''
+        }
     },
     mutations: loginMutations,
     getters: loginGetters,

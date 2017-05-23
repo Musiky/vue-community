@@ -29,7 +29,7 @@
     <!--tabs-->
   
     <!--Refresh Control-->
-    <mu-refresh-control :refreshing="common.isRefreshShow"
+    <mu-refresh-control :refreshing="common.refresh.isShow"
                         :trigger="trigger"
                         @refresh="refresh" />
     <!--refresh control-->

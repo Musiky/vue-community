@@ -65,21 +65,5 @@ export const loginActions = {
                 data: res.data.data
             })
         })
-    },
-    /**
-     * 显示 snackbar 的方法
-     * @param {msg} [String]     snackbar 显示的文字信息
-     * @param {isWarn} [Boolean] 是否背景色为警告色
-     */
-    showSnackbarAction({ commit, state }, params) {
-        commit('TOGGLE_SNACK_SHOW', true); // 显示 snack
-        commit('DEFINE_SNACK_MSG', {       // 定义文字
-            msg: params.msg
-        });
-        commit('TOGGLE_SNACK_STATE', params.isWarn);  // 定义 snack 背景样式
-
-        setTimeout(() => {
-            commit('TOGGLE_SNACK_SHOW', false)
-        }, 2000);
     }
 }

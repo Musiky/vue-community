@@ -6,15 +6,7 @@ export const releaseMutations = {
     },
     HIDE_RELEASE_PAGE(state) {
         state.isReleasePageShow = false
-    },
-    SHOW_DIALOG(state, action) {
-        state.dialog.isShow = true;
-        state.dialog.msg = action.msg
-    },
-    HIDE_DIALOG(state) {
-        state.dialog.isShow = false;
-        state.dialog.msg = ''
-    },
+    },    
     FETCH_RELEASE_REQ(state) {
         state.isReleaseFetching = true
     },

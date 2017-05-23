@@ -13,15 +13,6 @@ export const loginMutations = {
         state.data.success = false;
         state.error = action.error;
     },
-    TOGGLE_SNACK_SHOW(state, action) {
-        state.snackshow = action;
-    },
-    TOGGLE_SNACK_STATE(state, action) {
-        state.snackwarn = action
-    },
-    DEFINE_SNACK_MSG(state, action) {
-        state.snackmsg = action.msg
-    },
     COMMIT_USERINFO(state, action) {
         state.userinfo = action.data
     },

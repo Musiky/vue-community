@@ -13,7 +13,7 @@
   
     <!--Router View-->
     <router-view class="main"
-                 :class="{'hide-overflow': isHideMainOverflow}"></router-view>
+                 :class="{'hide-overflow': common.isHideMainOverflow}"></router-view>
     <!--router view-->
   
     <!--ButtomNav-->
@@ -30,7 +30,7 @@ import releasePage from './components/releasePage/releasePage'
 export default {
   computed: {
     ...mapState([
-      'isHideMainOverflow',
+      'common',
       'release'
     ])
   },

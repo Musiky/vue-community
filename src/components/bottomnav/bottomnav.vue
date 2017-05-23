@@ -1,6 +1,6 @@
 <template>
   <mu-paper>
-    <mu-bottom-nav :value="bottomNav.active"
+    <mu-bottom-nav :value="common.bottomnav.active"
                    shift
                    @change="handleChange">
       <mu-bottom-nav-item value="topics"
@@ -36,7 +36,7 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapState([
-      'bottomNav'
+      'common'
     ]),
     ...mapGetters([
       'HAS_NOT_READ_MESSAGES_COUNT'
@@ -53,16 +53,7 @@ export default {
 <style lang="scss">
 @import '../../assets/sass/_base.scss';
 .mu-bottom-nav-shift {
-  background: $ExtraLightGray !important;
-  .title {
-    color: $primary !important;
-  }
-  .icon {
-    color: $Gray !important;
-  }
-  .active div.mu-buttom-item-wrapper i {
-    color: $primary !important;
-  }
+  background: $Black !important;
   .mu-buttom-item {
     .mu-buttom-item-wrapper {
       .message-count {

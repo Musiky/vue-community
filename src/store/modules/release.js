@@ -3,11 +3,7 @@ import { releaseActions } from '../actions/release'
 const release = {
     state: {
         isReleaseFetching: false,
-        isReleasePageShow: false,
-        dialog: {
-            isShow: false,
-            msg: ''
-        }
+        isReleasePageShow: false
     },
     mutations: releaseMutations,
     actions: releaseActions

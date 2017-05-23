@@ -4,7 +4,27 @@ import { commonActions } from '../actions/common.js'
 const common = {
     state: {
         // ----- refresh
-        isRefreshShow: false
+        refresh: {
+            isShow: false
+        },
+        // ----- snackbar
+        snack: {
+            isShow: false,
+            isWarn: null,
+            msg: '',
+            position: ''
+        },
+        // ----- tip dialog
+        tipdialog: {
+            isShow: false,
+            msg: ''
+        },
+        // ----- bottom nav
+        bottomnav: {
+            active: 'topics'
+        },
+        // ----- main overflow
+        isHideMainOverflow: false
     },
     mutations: commonMutations,
     actions: commonActions

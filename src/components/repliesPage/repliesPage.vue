@@ -2,9 +2,7 @@
     <mu-flexbox class="repliesPage"
                 orient="vertical">
         <!--Snackbar-->
-        <mu-snackbar v-show="login.snackshow"
-                     :class="{'snackbar-warn': login.snackwarn, 'snackbar-suc': !login.snackwarn}"
-                     :message="login.snackmsg" />
+        <snackbar v-show="common.snack.isShow"></snackbar>
         <!--snackbar-->
     
         <!--Title-->
@@ -62,6 +60,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { getCookie } from '../../assets/js/cookies.js'
+import snackbar from '../../components/snackbar/snackbar'
 import replyItem from '../../components/replyItem/replyItem'
 export default {
     data () {
@@ -78,10 +77,12 @@ export default {
     computed: {
         ...mapState([
             'login',
-            'info'
+            'info',
+            'common'
         ])
     },
     components: {
+        snackbar,
         replyItem
     },
     methods: {
@@ -108,7 +109,7 @@ export default {
                 this.HIDE_REPLIES_PAGE();
                 this.HIDE_MAIN_OVERFLOW();
                 this.$store.commit('HANDLE_CHANGE', 'user');
-                
+
                 // 显示提示
                 this.$store.dispatch('showSnackbarAction', {
                     msg: '请先登录',
@@ -131,7 +132,8 @@ export default {
             if (!content) {
                 this.$store.dispatch('showSnackbarAction', {
                     msg: '评论不能为空',
-                    isWarn: true
+                    isWarn: true,
+                    position: '0'
                 });
                 return
             }

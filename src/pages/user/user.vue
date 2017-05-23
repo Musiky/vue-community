@@ -8,9 +8,7 @@
     <!--children router-->
   
     <!--Snackbar-->
-    <mu-snackbar v-show="login.snackshow"
-                 :class="{'snackbar-warn': login.snackwarn, 'snackbar-suc': !login.snackwarn}"
-                 :message="login.snackmsg" />
+    <snackbar v-show="common.snack.isShow"></snackbar>
     <!--snackbar-->
   
     <!--Progress-->
@@ -55,7 +53,8 @@
           <div class="info">
             <div class="username">{{login.data.loginname}}</div>
             <div class="userid">ID: {{login.data.id}}</div>
-            <mu-flexbox class="score" justify="center">
+            <mu-flexbox class="score"
+                        justify="center">
               <mu-icon value="stars"
                        color="rgb(252, 192, 21)"
                        :size="18"></mu-icon>
@@ -130,6 +129,7 @@
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import { setCookie, getCookie, delCookie } from '../../assets/js/cookies'
+import snackbar from '../../components/snackbar/snackbar'
 import mainProgress from '../../components/mainProgress/mainProgress'
 export default {
   data () {
@@ -147,7 +147,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'login'
+      'login',
+      'common'
     ]),
     ...mapGetters([
       'REPLIES_COUNT',
@@ -156,6 +157,7 @@ export default {
     ])
   },
   components: {
+    snackbar,
     mainProgress
   },
   methods: {
@@ -168,7 +170,10 @@ export default {
     tapToLogIn () {
       // 判断输入
       if (!this.accesstoken) {
-        this.showSnackbar('accesstoken 不能为空', true);
+        this.$store.dispatch('showSnackbarAction', {
+          msg: 'accesstoken 不能为空',
+          isWarn: true
+        })
         return
       }
       // 发送登录请求
@@ -185,13 +190,6 @@ export default {
         isWarn: false
       })
     },
-    // ----- snackbar
-    showSnackbar (msg, isWarn) {
-      this.$store.dispatch('showSnackbarAction', {
-        msg,
-        isWarn
-      })
-    },
     // ----- 跳转到 usertopics
     tapToUserTopics (title, type) {
       // 锁定根路由
@@ -206,16 +204,6 @@ export default {
 @import '../../assets/sass/_base.scss';
 .user {
   background: $ExtraLightGray;
-  .mu-snackbar {
-    height: 56px;
-    bottom: 56px;
-  }
-  .snackbar-warn {
-    background: $orange !important;
-  }
-  .snackbar-suc {
-    background: $primary !important;
-  }
   .mu-text-field {
     &.focus-state {
       color: $primary !important;
@@ -266,7 +254,7 @@ export default {
           font-size: .22;
           margin-top: .08rem;
         }
-        .score {          
+        .score {
           position: absolute;
           right: 0;
           top: 0;

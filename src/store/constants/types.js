@@ -11,14 +11,8 @@ export const TOGGLE_ISFETCHING_STATE = 'TOGGLE_ISFETCHING_STATE'
 export const FETCH_USER_REQ = 'FETCH_USER_REQ'
 export const FETCH_USER_SUC = 'FETCH_USER_SUC'
 export const FETCH_USER_ERR = 'FETCH_USER_ERR'
-export const TOGGLE_SNACK_SHOW = 'TOGGLE_SNACK_SHOW'
-export const TOGGLE_SNACK_STATE = 'TOGGLE_SNACK_STATE'
-export const DEFINE_SNACK_MSG = 'DEFINE_SNACK_MSG'
 export const COMMIT_USERINFO = 'COMMIT_USERINFO'
 export const LOGOUT = 'LOGOUT'
-
-// bottom nav
-export const HANDLE_CHANGE = 'HANDLE_CHANGE'
 
 // -----
 // info page
@@ -58,9 +52,6 @@ export const HIDE_RELEASE_PAGE = 'HIDE_RELEASE_PAGE'
 export const FETCH_RELEASE_REQ = 'FETCH_RELEASE_REQ'
 export const FETCH_RELEASE_SUC = 'FETCH_RELEASE_SUC'
 export const FETCH_RELEASE_ERR = 'FETCH_RELEASE_ERR'
-export const SHOW_DIALOG = 'SHOW_DIALOG'
-export const HIDE_DIALOG = 'HIDE_DIALOG'
-
 
 /**
  * Common
@@ -68,6 +59,22 @@ export const HIDE_DIALOG = 'HIDE_DIALOG'
  * @param {dialog}
  * @param {snack}
  * @param {main page overflow}
+ * @param {bottomnav}
  */
+// refresh
 export const SHOW_REFRESH = 'SHOW_REFRESH'
 export const HIDE_REFRESH = 'HIDE_REFRESH'
+
+// snackbar
+export const SHOW_SNACK = 'SHOW_SNACK'
+export const HIDE_SNACK = 'HIDE_SNACK'
+export const DEFINE_SNACK_MSG = 'DEFINE_SNACK_MSG'
+export const DEFINE_SNACK_TYPE = 'DEFINE_SNACK_TYPE'
+export const DEFINE_SNACK_POSITION = 'DEFINE_SNACK_POSITION'
+
+// dialog
+export const SHOW_TIP_DIALOG = 'SHOW_TIP_DIALOG'
+export const HIDE_TIP_DIALOG = 'HIDE_TIP_DIALOG'
+
+// bottom nav
+export const HANDLE_CHANGE = 'HANDLE_CHANGE'
