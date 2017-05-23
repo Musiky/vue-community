@@ -73,7 +73,7 @@ export default {
             this.$emit('cancel')
         },
         // 保存编辑
-        saveEdit () {
+        saveEdit () {            
             this.$emit('save', this.markedContent)
         }
     }
