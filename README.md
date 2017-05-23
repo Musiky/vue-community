@@ -7,6 +7,15 @@ vue.js 中文论坛，手机端页面重构。
 
 ![code](./static/img/exported_qrcode_image.png)
 
+# 上图
+![topics](./static/img/topics.png)
+
+![infopage](./static/img/infopage.png)
+
+![user](./static/img/user.png)
+
+![release](./static/img/release.png)
+
 ## Build Setup
 
 ``` bash
@@ -22,3 +31,6 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
+
+
+
