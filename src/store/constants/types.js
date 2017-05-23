@@ -60,3 +60,14 @@ export const FETCH_RELEASE_SUC = 'FETCH_RELEASE_SUC'
 export const FETCH_RELEASE_ERR = 'FETCH_RELEASE_ERR'
 export const SHOW_DIALOG = 'SHOW_DIALOG'
 export const HIDE_DIALOG = 'HIDE_DIALOG'
+
+
+/**
+ * Common
+ * @param {refresh}
+ * @param {dialog}
+ * @param {snack}
+ * @param {main page overflow}
+ */
+export const SHOW_REFRESH = 'SHOW_REFRESH'
+export const HIDE_REFRESH = 'HIDE_REFRESH'

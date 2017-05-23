@@ -5,12 +5,20 @@ export const topicsActions = {
     /**
      * 请求主题列表数据
      * @type  {get}
-     * @param {tab} [String]   主题类型
-     * @param {page} [Number]  分页
-     * @param {limit} [Number] 每次请求获取数据个数
+     * @param {tab} [String]        主题类型
+     * @param {page} [Number]       分页
+     * @param {limit} [Number]      每次请求获取数据个数
+     * @param {isRefresh} [Boolean] 请求是否是刷新请求，默认 false
      */
     fetchTopicsAction({ commit, state }, params) {
-        commit('FETCH_TOPICS_REQ');
+        let isRefresh = params.isRefresh || false;
+
+        if (!isRefresh) {
+            commit('FETCH_TOPICS_REQ');
+        } else {
+            commit('SHOW_REFRESH');
+        };
+
         axios({
             method: 'get',
             url: 'topics',
@@ -26,6 +34,8 @@ export const topicsActions = {
 
             // 累加数组
             arr = origin.concat(data);
+
+            commit('HIDE_REFRESH');
 
             if (data.length > 0) {
                 commit('FETCH_TOPICS_SUC', {

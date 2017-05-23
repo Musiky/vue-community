@@ -29,7 +29,7 @@
     <!--tabs-->
   
     <!--Refresh Control-->
-    <mu-refresh-control :refreshing="refreshing"
+    <mu-refresh-control :refreshing="common.isRefreshShow"
                         :trigger="trigger"
                         @refresh="refresh" />
     <!--refresh control-->
@@ -75,7 +75,6 @@ export default {
       scroller: null,
       page: 0,
       // ----- refresh control
-      refreshing: false,
       trigger: null
     }
   },
@@ -96,7 +95,8 @@ export default {
     ...mapState([
       'topics',
       'info',
-      'login'
+      'login',
+      'common'
     ]),
     topicsDataLen () {
       return this.topics.data.length
@@ -158,9 +158,9 @@ export default {
     },
     // 公共请求方法
     // ==========
-    http (tab, page, limit) {
+    http (tab, page, limit, isRefresh) {
       this.$store.dispatch('fetchTopicsAction', {
-        tab, page, limit
+        tab, page, limit, isRefresh
       })
     },
     // 上拉加载更多
@@ -174,13 +174,9 @@ export default {
     // 下拉刷新
     // =======
     refresh () {
-      this.refreshing = true;
       this.CLEAR_STATE_DATA();
-      this.http(this.activeTab, 0, 20);
+      this.http(this.activeTab, 0, 20, true);
       this.page = 1;
-      setTimeout(() => {
-        this.refreshing = false;
-      }, 1000)
     },
     // 跳转详情页
     // ========

@@ -8,6 +8,7 @@ import login from './modules/login'
 import bottomNav from './modules/bottomNav'
 import message from './modules/message'
 import release from './modules/release'
+import common from './modules/common'
 
 const store = new Vuex.Store({
     state: {
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
         login,
         bottomNav,
         message,
-        release
+        release,
+        common
     },
     mutations: {
         SHOW_MAIN_OVERFLOW (state) {
