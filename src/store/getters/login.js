@@ -1,5 +1,7 @@
+import * as types from '../constants/types'
+
 export const loginGetters = {
-    COLLECTS_COUNT (state) {
+    [types.COLLECTS_COUNT] (state) {
         let arr = state.userinfo.collect_topics;
         if (arr) {
             return arr.length
@@ -7,7 +9,7 @@ export const loginGetters = {
             return 0
         }
     },
-    REPLIES_COUNT (state) {
+    [types.REPLIES_COUNT] (state) {
         let arr = state.userinfo.recent_replies;
         if (arr) {
             return arr.length
@@ -15,7 +17,7 @@ export const loginGetters = {
             return 0
         }       
     },
-    MY_TOPICS_COUNT (state) {
+    [types.MY_TOPICS_COUNT] (state) {
         let arr = state.userinfo.recent_topics;
         if (arr) {
             return arr.length

@@ -1,19 +1,19 @@
-import { SHOW_RELEASE_PAGE, HIDE_RELEASE_PAGE, FETCH_RELEASE_REQ, FETCH_RELEASE_SUC, FETCH_RELEASE_ERR } from '../constants/types'
+import * as types from '../constants/types'
 
 export const releaseMutations = {
-    SHOW_RELEASE_PAGE(state) {
+    [types.SHOW_RELEASE_PAGE](state) {
         state.isReleasePageShow = true
     },
-    HIDE_RELEASE_PAGE(state) {
+    [types.HIDE_RELEASE_PAGE](state) {
         state.isReleasePageShow = false
     },    
-    FETCH_RELEASE_REQ(state) {
+    [types.FETCH_RELEASE_REQ](state) {
         state.isReleaseFetching = true
     },
-    FETCH_RELEASE_SUC(state) {
+    [types.FETCH_RELEASE_SUC](state) {
         state.isReleaseFetching = false
     },
-    FETCH_RELEASE_ERR(state) {
+    [types.FETCH_RELEASE_ERR](state) {
         state.isReleaseFetching = false
     }    
 }

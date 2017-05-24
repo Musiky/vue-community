@@ -1,27 +1,27 @@
-import { FETCH_INFO_REQ, FETCH_INFO_SUC, FETCH_INFO_ERR, COMMIT_ID, TOGGLE_INFO_PAGE_DISPLAY, SHOW_REPLIES_PAGE, HIDE_REPLIES_PAGE, SHOW_COMMENT_BAR, HIDE_COMMENT_BAR, SEND_COMMENT_REQ, SEND_COMMENT_SUC, SEND_COMMENT_ERR, SUC_COLLECT, DEL_COLLECTED } from '../constants/types'
+import * as types from '../constants/types'
 
 export const infoMutations = {
     // ----- info
-    FETCH_INFO_REQ(state) {
+    [types.FETCH_INFO_REQ](state) {
         state.isInfoFetching = true
     },
-    FETCH_INFO_SUC(state, action) {
+    [types.FETCH_INFO_SUC](state, action) {
         state.isInfoFetching = false;
         state.infoData = action.data
     },
-    FETCH_INFO_ERR(state, action) {
+    [types.FETCH_INFO_ERR](state, action) {
         state.isInfoFetching = false;
         state.error = action.error;
     },
-    COMMIT_ID(state, action) {
+    [types.COMMIT_ID](state, action) {
         state.id = action.id;
         state.userid = action.userid
     },
-    TOGGLE_INFO_PAGE_DISPLAY(state) {
+    [types.TOGGLE_INFO_PAGE_DISPLAY](state) {
         state.isInfoPageShow = !state.isInfoPageShow
     },
     // clear data
-    CLEAR_INFO_DATA(state) {
+    [types.CLEAR_INFO_DATA](state) {
         state.infoData = {
             good: null,
             id: '',
@@ -42,32 +42,32 @@ export const infoMutations = {
         }
     },
     // ----- replies
-    SHOW_REPLIES_PAGE(state) {
+    [types.SHOW_REPLIES_PAGE](state) {
         state.isRepliesPageShow = true
     },
-    HIDE_REPLIES_PAGE(state) {
+    [types.HIDE_REPLIES_PAGE](state) {
         state.isRepliesPageShow = false
     },
-    SHOW_COMMENT_BAR(state) {
+    [types.SHOW_COMMENT_BAR](state) {
         state.commentBarShow = true
     },
-    HIDE_COMMENT_BAR(state) {
+    [types.HIDE_COMMENT_BAR](state) {
         state.commentBarShow = false
     },
-    SEND_COMMENT_REQ(state) {
+    [types.SEND_COMMENT_REQ](state) {
         state.isRepliesFetching = true
     },
-    SEND_COMMENT_SUC(state) {
+    [types.SEND_COMMENT_SUC](state) {
         state.isRepliesFetching = false
     },
-    SEND_COMMENT_ERR(state) {
+    [types.SEND_COMMENT_ERR](state) {
         state.isRepliesFetching = false
     },
     // collect
-    SUC_COLLECT(state) {
+    [types.SUC_COLLECT](state) {
         state.isCollected = true
     },
-    DEL_COLLECTED(state) {
+    [types.DEL_COLLECTED](state) {
         state.isCollected = false
     }
 }

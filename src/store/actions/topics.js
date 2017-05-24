@@ -1,4 +1,4 @@
-import { FETCH_TOPICS_REQ, FETCH_TOPICS_SUC, FETCH_TOPICS_ERR, CLEAR_STATE_DATA, TOGGLE_NO_MORE_DATA_STATE, TOGGLE_ERROR_DATA_STATE, TOGGLE_ISFETCHING_STATE } from '../constants/types'
+import * as types from '../constants/types'
 import axios from 'axios'
 
 export const topicsActions = {
@@ -14,9 +14,9 @@ export const topicsActions = {
         let isRefresh = params.isRefresh || false;
 
         if (!isRefresh) {
-            commit('FETCH_TOPICS_REQ');
+            commit(types.FETCH_TOPICS_REQ);
         } else {
-            commit('SHOW_REFRESH');
+            commit(types.SHOW_REFRESH);
         };
 
         axios({
@@ -35,19 +35,19 @@ export const topicsActions = {
             // 累加数组
             arr = origin.concat(data);
 
-            commit('HIDE_REFRESH');
+            commit(types.HIDE_REFRESH);
 
             if (data.length > 0) {
-                commit('FETCH_TOPICS_SUC', {
+                commit(types.FETCH_TOPICS_SUC, {
                     data: arr
                 })
             } else {
-                commit('TOGGLE_NO_MORE_DATA_STATE');
-                commit('TOGGLE_ISFETCHING_STATE');
+                commit(types.TOGGLE_NO_MORE_DATA_STATE);
+                commit(types.TOGGLE_ISFETCHING_STATE);
             }
         }).catch((error) => {
-            commit('TOGGLE_ERROR_DATA_STATE');
-            commit('FETCH_TOPICS_ERR', {
+            commit(types.TOGGLE_ERROR_DATA_STATE);
+            commit(types.FETCH_TOPICS_ERR, {
                 error
             });
             console.log(error)

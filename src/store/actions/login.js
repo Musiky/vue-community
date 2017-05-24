@@ -1,4 +1,4 @@
-import { FETCH_USER_REQ, FETCH_USER_SUC, FETCH_USER_ERR, TOGGLE_SNACK_SHOW, TOGGLE_SNACK_STATE, DEFINE_SNACK_MSG, COMMIT_USERINFO } from '../constants/types'
+import * as types from '../constants/types'
 import { setCookie, getCookie, delCookie } from '../../assets/js/cookies'
 import axios from 'axios'
 
@@ -9,7 +9,7 @@ export const loginActions = {
      * @param {accesstoken} [String] 用户登录token
      */
     fetchUserAction({ commit, state, dispatch }, params) {
-        commit('FETCH_USER_REQ');
+        commit(types.FETCH_USER_REQ);
         axios({
             method: 'post',
             url: 'accesstoken',
@@ -27,7 +27,7 @@ export const loginActions = {
             setCookie('accesstoken', params.accesstoken);
 
             // 提交获取的数据
-            commit('FETCH_USER_SUC', {
+            commit(types.FETCH_USER_SUC, {
                 data: res.data
             });
 
@@ -37,7 +37,7 @@ export const loginActions = {
             });
 
             // 获取未读信息
-            return dispatch('fetchMessageAction', {
+            dispatch('fetchMessageAction', {
                 accesstoken: params.accesstoken
             })
         }).catch((error) => {
@@ -45,7 +45,7 @@ export const loginActions = {
                 msg: '登录失败，请检查网络或accesstoken是否正确',
                 isWarn: true
             });
-            commit('FETCH_USER_ERR', {
+            commit(types.FETCH_USER_ERR, {
                 error
             });
             console.log(error)
@@ -61,7 +61,7 @@ export const loginActions = {
             method: 'get',
             url: 'user/' + params.loginname
         }).then((res) => {
-            commit('COMMIT_USERINFO', {
+            commit(types.COMMIT_USERINFO, {
                 data: res.data.data
             })
         })

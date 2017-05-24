@@ -1,4 +1,4 @@
-import { SHOW_REFRESH, HIDE_REFRESH } from '../constants/types'
+import * as types from '../constants/types'
 
 export const commonActions = {    
     /**
@@ -11,24 +11,24 @@ export const commonActions = {
         let isWarn = params.isWarn || false,
             position = params.position || '56px';
 
-        commit('SHOW_SNACK');              // 显示 snack
-        commit('DEFINE_SNACK_MSG', {       // 定义文字
+        commit(types.SHOW_SNACK);              // 显示 snack
+        commit(types.DEFINE_SNACK_MSG, {       // 定义文字
             msg: params.msg
         });
 
         // 定义 snack 背景样式
-        commit('DEFINE_SNACK_TYPE', {
+        commit(types.DEFINE_SNACK_TYPE, {
             isWarn
         });
 
         // 定义位置
-        commit('DEFINE_SNACK_POSITION', {
+        commit(types.DEFINE_SNACK_POSITION, {
             position
         })  
 
         // 2s 后隐藏 snackbar
         setTimeout(() => {
-            commit('HIDE_SNACK')
+            commit(types.HIDE_SNACK)
         }, 2000);
     }
 }

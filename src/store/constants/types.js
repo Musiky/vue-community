@@ -1,3 +1,4 @@
+/*********** Mutations ***********/
 // topics
 export const FETCH_TOPICS_REQ = 'FETCH_TOPICS_REQ'
 export const FETCH_TOPICS_SUC = 'FETCH_TOPICS_SUC'
@@ -78,3 +79,19 @@ export const HIDE_TIP_DIALOG = 'HIDE_TIP_DIALOG'
 
 // bottom nav
 export const HANDLE_CHANGE = 'HANDLE_CHANGE'
+
+// main overflow
+export const SHOW_MAIN_OVERFLOW = 'SHOW_MAIN_OVERFLOW'
+export const HIDE_MAIN_OVERFLOW = 'HIDE_MAIN_OVERFLOW'
+
+/*********** mutations ***********/
+
+/*********** Getters ***********/
+// login
+export const COLLECTS_COUNT = 'COLLECTS_COUNT'
+export const REPLIES_COUNT = 'REPLIES_COUNT'
+export const MY_TOPICS_COUNT = 'MY_TOPICS_COUNT'
+
+// message
+export const HAS_NOT_READ_MESSAGES_COUNT = 'HAS_NOT_READ_MESSAGES_COUNT'
+/*********** getters ***********/
