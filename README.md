@@ -1,4 +1,4 @@
-vue.js 中文论坛，手机端页面重构。
+vue.js 中文论坛，手机端页面重构。
 
 ## 项目地址
 [demo地址](https://musiky.github.io/vue-community/dist/index.html)
