@@ -1,7 +1,7 @@
 vue.js 中文论坛，手机端页面重构。
 
 ## 项目地址
-[demo地址](https://musiky.github.io/vue-community/dist/index.html)
+[demo地址](https://musiky.github.io/vue-community/dist/index.html)
 
 > 手机端预览👇
 
