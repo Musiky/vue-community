@@ -38,8 +38,7 @@ export default {
     appbar,
     bottomnav,
     releasePage
-  },
-
+  }
 }
 </script>
 
