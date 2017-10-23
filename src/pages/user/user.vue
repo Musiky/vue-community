@@ -164,7 +164,7 @@ export default {
     data () {
         return {
             // ----- accesstoken
-            accesstoken: '',
+            accesstoken: 'deb24ad1-62ec-4f17-99c3-d5d9bdd1f48e',
             // ----- tip
             isTipShow: false
         }
